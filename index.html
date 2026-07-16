@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
+<meta name="bb-build" content="onesignal-safe-boot-v2">
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -335,6 +337,10 @@
   .notif-row .notif-item{min-width:0}
   .notif-delete{width:34px;border:1.2px solid #c7c3d5;background:#fff;color:#9e244a;cursor:pointer;font-size:17px;font-weight:900}
   .notif-delete:hover{border-color:var(--pink);background:#ffe5ef}
+  .push-optin{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid #d8d4e3;background:#eeecf6}
+  .push-optin button{border:1.2px solid var(--line);background:var(--line);color:#fff;padding:8px 11px;font-weight:800;cursor:pointer}
+  .push-optin button:disabled{opacity:.55;cursor:default}
+  .push-optin span{font-size:11px;color:var(--ink-soft);text-align:right}
   /* ===================== SOCIAL CALENDAR ===================== */
   .social-cal .cell.has-post{background:#fff;border-color:var(--purple);box-shadow:inset 0 -4px 0 rgba(155,93,229,.22)}.social-cal .cell.past{opacity:.55}.post-cell-badges{display:flex;flex-wrap:wrap;gap:2px;margin-top:auto;padding:0 3px 3px}.post-cell-badges span{font-family:"Space Mono",monospace;font-size:7.5px;line-height:1;border:1px solid var(--line);padding:3px;background:#fff}.post-cell-badges .rt{background:#ffe4f0}.post-cell-badges .st{background:#e4f8ea}.post-day-list{display:grid;gap:7px;margin:10px 0}.post-day-card{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;border:1.2px solid var(--line);background:#fff;padding:9px}.post-day-time{font-family:"Space Mono",monospace;font-size:10px;font-weight:800}.post-editor{border-top:1px dashed #bdb9c9;margin-top:12px;padding-top:12px}.post-editor .social-form{box-shadow:none;margin:0}.platform-choice{display:grid;grid-template-columns:1fr 1fr;gap:6px}.platform-choice button{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px;font-weight:800;cursor:pointer}.platform-choice button.on{background:var(--ink);color:#fff}.social-post-note{margin-top:6px}
   /* ===================== RELEASE ===================== */
@@ -351,6 +357,90 @@
   .setup.hide{display:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+
+<script>
+/* ===================== ONESIGNAL WEB PUSH ===================== */
+const ONESIGNAL_APP_ID="dd9773b0-d83c-4011-9cc9-5b97266adee2";
+const ONESIGNAL_SAFARI_WEB_ID="web.onesignal.auto.599df49f-4478-46e8-9089-3c95d63b63cf";
+let oneSignalSdk=null;
+let oneSignalInitialized=false;
+
+function updatePushUi(){
+  const btn=document.getElementById("pushEnable");
+  const status=document.getElementById("pushStatus");
+  if(!btn||!status)return;
+  if(!oneSignalInitialized||!oneSignalSdk){ btn.disabled=true; status.textContent="Hazırlanıyor…"; return; }
+  const supported=oneSignalSdk.Notifications.isPushSupported();
+  if(!supported){ btn.disabled=true; status.textContent="Bu tarayıcı desteklemiyor"; return; }
+  const permission=oneSignalSdk.Notifications.permission;
+  const optedIn=!!oneSignalSdk.User.PushSubscription.optedIn;
+  if(permission&&optedIn){ btn.disabled=true; btn.textContent="Telefon bildirimleri açık"; status.textContent=`${nameOf(me)} olarak bağlı`; }
+  else if(Notification.permission==="denied"){ btn.disabled=true; btn.textContent="Bildirim izni engellendi"; status.textContent="Tarayıcı ayarlarından izin ver"; }
+  else { btn.disabled=false; btn.textContent="Telefon bildirimlerini aç"; status.textContent="Bu cihazı hesabına bağla"; }
+}
+
+function initOneSignal(){
+  window.OneSignalDeferred=window.OneSignalDeferred||[];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    try{
+      await OneSignal.init({
+        appId:ONESIGNAL_APP_ID,
+        safari_web_id:ONESIGNAL_SAFARI_WEB_ID,
+        serviceWorkerPath:"/belkibiraz-app/OneSignalSDKWorker.js",
+        serviceWorkerParam:{scope:"/belkibiraz-app/"},
+        notifyButton:{enable:false},
+        autoResubscribe:true
+      });
+      oneSignalSdk=OneSignal;
+      oneSignalInitialized=true;
+      OneSignal.Notifications.addEventListener("permissionChange",updatePushUi);
+      OneSignal.User.PushSubscription.addEventListener("change",updatePushUi);
+      if(me) await OneSignal.login(me);
+      updatePushUi();
+    }catch(err){
+      console.error("OneSignal başlatılamadı:",err);
+      const status=document.getElementById("pushStatus");
+      if(status)status.textContent="Bildirim bağlantısı kurulamadı";
+    }
+  });
+}
+
+async function syncOneSignalUser(){
+  if(!me)return;
+  if(oneSignalInitialized&&oneSignalSdk){
+    try{ await oneSignalSdk.login(me); }catch(err){ console.error("OneSignal kullanıcı eşleşmesi başarısız:",err); }
+    updatePushUi();
+    return;
+  }
+  window.OneSignalDeferred=window.OneSignalDeferred||[];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    try{ await OneSignal.login(me); }catch(err){ console.error("OneSignal kullanıcı eşleşmesi başarısız:",err); }
+  });
+}
+
+async function enablePhoneNotifications(){
+  if(!me)return;
+  if(!oneSignalInitialized||!oneSignalSdk){ alert("Bildirim sistemi henüz hazır değil. Birkaç saniye sonra tekrar dene."); return; }
+  try{
+    await oneSignalSdk.login(me);
+    await oneSignalSdk.Notifications.requestPermission();
+    if(oneSignalSdk.Notifications.permission&&!oneSignalSdk.User.PushSubscription.optedIn){
+      await oneSignalSdk.User.PushSubscription.optIn();
+    }
+    updatePushUi();
+  }catch(err){
+    console.error("Telefon bildirimi açılamadı:",err);
+    alert("Telefon bildirimi açılamadı. Tarayıcı bildirim ayarlarını kontrol et.");
+  }
+}
+
+async function logoutOneSignalUser(){
+  if(oneSignalInitialized&&oneSignalSdk){
+    try{ await oneSignalSdk.logout(); }catch(err){ console.error("OneSignal çıkışı başarısız:",err); }
+  }
+}
+</script>
+
 </head>
 <body>
 
@@ -381,6 +471,7 @@
     </div>
     <div class="notif-panel hide" id="notifPanel">
       <div class="notif-head"><div><b>Bildirimler</b><span id="notifSummary">—</span></div><div class="notif-head-actions"><button id="notifReadAll" type="button">Tümünü okundu yap</button><button id="notifClose" type="button" aria-label="Kapat">×</button></div></div>
+      <div class="push-optin" id="pushOptinBox"><button id="pushEnable" type="button">Telefon bildirimlerini aç</button><span id="pushStatus">Hazırlanıyor…</span></div>
       <div class="notif-list" id="notifList"></div>
     </div>
     <div class="statsbar">
@@ -851,6 +942,8 @@ function enterApp(){
   document.getElementById("login").style.display="none";
   document.getElementById("main").style.display="block";
   document.getElementById("whoName").textContent=nameOf(me);
+  syncOneSignalUser();
+  updatePushUi();
   if(!configured()) document.getElementById("setup").classList.remove("hide");
   buildCards();
   load();
@@ -1033,7 +1126,8 @@ function activateTab(nextTab){
   renderAll();
 }
 document.querySelectorAll("#nav button").forEach(b=> b.onclick=()=>activateTab(b.dataset.tab));
-document.getElementById("switchUser").onclick=()=>{ clearMe(); me=null; document.getElementById("main").style.display="none"; document.getElementById("login").style.display="flex"; };
+document.getElementById("pushEnable").onclick=enablePhoneNotifications;
+document.getElementById("switchUser").onclick=async()=>{ await logoutOneSignalUser(); clearMe(); me=null; document.getElementById("main").style.display="none"; document.getElementById("login").style.display="flex"; };
 
 /* ===================== STATS (IG / Spotify) ===================== */
 function fmt(n){
@@ -1611,9 +1705,24 @@ async function refresh(){ if(document.visibilityState==="visible" && configured(
 document.addEventListener("visibilitychange",refresh);
 window.addEventListener("focus",refresh);
 
-/* ===== boot ===== */
-buildTiles();
-if(me){ enterApp(); } else { document.getElementById("main").style.display="none"; }
+/* ===== boot =====
+   Uygulama arayüzü OneSignal'dan bağımsız açılır.
+   Push servisi hata verse bile profil kartları ve uygulama çalışmaya devam eder.
+*/
+try{
+  buildTiles();
+  if(me){ enterApp(); }
+  else { document.getElementById("main").style.display="none"; }
+}catch(err){
+  console.error("Uygulama giriş ekranı başlatılamadı:",err);
+}
+
+/* OneSignal en son ve korumalı biçimde başlatılır. */
+setTimeout(()=>{
+  try{ initOneSignal(); }
+  catch(err){ console.error("OneSignal başlatma çağrısı başarısız:",err); }
+},0);
+
 tickClock(); setInterval(tickClock,1000); setInterval(refresh,12000);
 </script>
 </body>
