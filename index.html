@@ -59,7 +59,7 @@
   .statsedit .hint{width:100%;color:#8a8798;font-size:11px;font-family:"DM Sans",sans-serif}
   .topbar img{width:34px;height:34px;border-radius:9px;border:1px solid #2a2a33}
   .topbar .ttl{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:17px;letter-spacing:.02em}
-  .topbar .who{margin-left:auto;font-size:12.5px;color:#c9c7d6;text-align:right;line-height:1.2}
+  .topbar .who{margin-left:0;font-size:12.5px;color:#c9c7d6;text-align:right;line-height:1.2}
   .topbar .who b{color:#fff}
   .topbar .who button{display:block;margin-left:auto;margin-top:2px;background:none;border:none;color:var(--pink);font-size:12px;cursor:pointer;padding:0}
   .wrap{max-width:960px;margin:0 auto;padding:20px 16px 8px}
@@ -321,9 +321,18 @@
   .social-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 16px}.social-tabs button{flex:1 1 120px;border:1.5px solid var(--line);background:#fff;padding:10px 8px;font-weight:800;cursor:pointer;color:var(--ink)}.social-tabs button.on{background:var(--ink);color:#fff}.social-pane.hide{display:none}
   .social-form{border:1.5px solid var(--line);background:#fff;box-shadow:4px 4px 0 var(--purple);padding:12px;margin-bottom:14px;display:grid;gap:8px}.social-form input,.social-form textarea,.social-form select,.release-form input,.release-form textarea{width:100%;border:1.3px solid var(--line);background:#fff;padding:10px;font:inherit;color:var(--ink)}.social-form textarea,.release-form textarea{min-height:72px;resize:vertical}
   .social-card{border:1.5px solid var(--line);background:#fff;box-shadow:4px 4px 0 #cbc4ff;padding:12px;margin-bottom:11px}.social-card-head{display:flex;align-items:flex-start;gap:10px}.social-card-title{font-weight:900;font-size:17px;flex:1;min-width:0}.social-meta{font-family:"Space Mono",monospace;font-size:10px;color:var(--ink-soft);margin-top:4px}
-  .vote-row,.card-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}.vote-pill,.status-pill{font-family:"Space Mono",monospace;font-size:10px;border:1px solid var(--line);padding:5px 7px;background:var(--paper-2)}.vote-pill.ok{background:#e4f8ea;color:#217a43;border-color:#2f9b57}.status-pill{font-weight:800;text-transform:uppercase}
+  .vote-row,.card-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px}.vote-pill,.status-pill{font-family:"Space Mono",monospace;font-size:10px;border:1px solid var(--line);padding:5px 7px;background:var(--paper-2)}.vote-pill.ok{background:#e4f8ea;color:#217a43;border-color:#2f9b57}.vote-pill.bad{background:#ffe1e8;color:#a51d43;border-color:#d93b68}.status-pill{font-weight:800;text-transform:uppercase}
   .pipeline{display:flex;gap:4px;flex-wrap:wrap;margin-top:9px}.pipeline span{font-family:"Space Mono",monospace;font-size:8.5px;padding:4px 5px;border:1px solid #c7c3d5;color:#777;background:#f8f7fb}.pipeline span.on{background:var(--purple);color:#fff;border-color:var(--purple)}.editor-select{max-width:150px;padding:7px;border:1px solid var(--line);background:#fff}
   .post-card{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;border:1.5px solid var(--line);background:#fff;padding:11px;margin-bottom:9px}.post-date{font-family:"Space Mono",monospace;font-weight:800;font-size:11px;white-space:nowrap}.platform-badge{display:inline-block;font-family:"Space Mono",monospace;font-size:9px;text-transform:uppercase;border:1px solid var(--line);padding:3px 5px;margin-bottom:4px;background:#ffe4f0}.empty-state{border:1.5px dashed #aaa;background:rgba(255,255,255,.55);padding:16px;text-align:center;color:var(--ink-soft)}
+  /* ===================== NOTIFICATIONS ===================== */
+  .notif-btn{position:relative;margin-left:auto;width:38px;height:38px;flex:0 0 auto;border:1px solid #34313d;background:#19171f;color:#fff;border-radius:10px;cursor:pointer;font-size:18px;display:grid;place-items:center;padding:0}
+  .notif-btn:hover,.notif-btn[aria-expanded="true"]{border-color:var(--pink);background:#25212d}
+  .notif-badge{position:absolute;right:-5px;top:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--pink);color:#fff;border:2px solid #0e0e12;font-family:"Space Mono",monospace;font-size:9px;font-weight:800;display:grid;place-items:center}
+  .notif-badge.hide{display:none}.notif-panel{position:fixed;z-index:45;top:58px;right:12px;width:min(420px,calc(100vw - 24px));max-height:min(650px,calc(100vh - 82px));overflow:hidden;background:#f8f7fb;color:var(--ink);border:1.5px solid var(--line);box-shadow:8px 8px 0 rgba(32,28,59,.3);display:flex;flex-direction:column}.notif-panel.hide{display:none}
+  .notif-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;border-bottom:1.5px solid var(--line);background:#fff}.notif-head>div:first-child{display:flex;flex-direction:column}.notif-head b{font-family:"Bricolage Grotesque",sans-serif;font-size:18px}.notif-head span{font-family:"Space Mono",monospace;font-size:9px;color:var(--ink-soft)}.notif-head-actions{display:flex;align-items:center;gap:6px}.notif-head button{border:1px solid var(--line);background:#fff;color:var(--ink);padding:6px 8px;cursor:pointer;font-size:10px;font-weight:700}.notif-head #notifClose{font-size:18px;line-height:1;padding:4px 8px}
+  .notif-list{overflow:auto;padding:8px;display:grid;gap:7px}.notif-item{width:100%;text-align:left;border:1.2px solid #c7c3d5;background:#fff;color:var(--ink);padding:10px;cursor:pointer;display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start}.notif-item.unread{border-color:var(--pink);box-shadow:3px 3px 0 rgba(255,61,139,.2)}.notif-item.persistent{border-color:var(--orange);background:#fff9e8}.notif-icon{font-size:20px;line-height:1.2}.notif-title{font-weight:900;font-size:13px}.notif-text{font-size:12px;color:var(--ink-soft);margin-top:2px}.notif-time{font-family:"Space Mono",monospace;font-size:8.5px;color:#918ca8;margin-top:5px}.notif-empty{padding:28px 14px;text-align:center;color:var(--ink-soft)}
+  /* ===================== SOCIAL CALENDAR ===================== */
+  .social-cal .cell.has-post{background:#fff;border-color:var(--purple);box-shadow:inset 0 -4px 0 rgba(155,93,229,.22)}.social-cal .cell.past{opacity:.55}.post-cell-badges{display:flex;flex-wrap:wrap;gap:2px;margin-top:auto;padding:0 3px 3px}.post-cell-badges span{font-family:"Space Mono",monospace;font-size:7.5px;line-height:1;border:1px solid var(--line);padding:3px;background:#fff}.post-cell-badges .rt{background:#ffe4f0}.post-cell-badges .st{background:#e4f8ea}.post-day-list{display:grid;gap:7px;margin:10px 0}.post-day-card{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;border:1.2px solid var(--line);background:#fff;padding:9px}.post-day-time{font-family:"Space Mono",monospace;font-size:10px;font-weight:800}.post-editor{border-top:1px dashed #bdb9c9;margin-top:12px;padding-top:12px}.post-editor .social-form{box-shadow:none;margin:0}.platform-choice{display:grid;grid-template-columns:1fr 1fr;gap:6px}.platform-choice button{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px;font-weight:800;cursor:pointer}.platform-choice button.on{background:var(--ink);color:#fff}.social-post-note{margin-top:6px}
   /* ===================== RELEASE ===================== */
   .release-hero{border:1.5px solid var(--line);background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--pink);padding:18px;margin:10px 0 20px}.release-days{font-family:"Space Mono",monospace;font-size:34px;font-weight:900;line-height:1}.release-date{font-size:13px;color:#d8d4ed;margin-top:7px}.release-form{border:1.5px solid var(--line);background:#fff;padding:12px;display:grid;gap:8px;margin-bottom:14px}.release-card{border:1.5px solid var(--line);background:#fff;padding:12px;margin-bottom:9px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.release-card .rd{font-family:"Space Mono",monospace;font-size:11px;font-weight:800}
   /* ===================== BOTTOM NAV ===================== */
@@ -363,20 +372,24 @@
     <div class="topbar">
       <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAFoAWgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5UooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiig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oooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=" alt="">
       <div class="ttl">Belki Biraz</div>
+      <button class="notif-btn" id="notifBtn" type="button" aria-label="Bildirimler" aria-expanded="false">🔔<span class="notif-badge hide" id="notifBadge">0</span></button>
       <div class="who">Ben: <b id="whoName">—</b><button id="switchUser">değiştir</button></div>
+    </div>
+    <div class="notif-panel hide" id="notifPanel">
+      <div class="notif-head"><div><b>Bildirimler</b><span id="notifSummary">—</span></div><div class="notif-head-actions"><button id="notifReadAll" type="button">Tümünü okundu yap</button><button id="notifClose" type="button" aria-label="Kapat">×</button></div></div>
+      <div class="notif-list" id="notifList"></div>
     </div>
     <div class="statsbar">
       <a class="stat" target="_blank" rel="noopener" href="https://www.instagram.com/belkibirazlive/">📷 <b id="igN">—</b> takipçi</a>
       <span class="dv">·</span>
       <a class="stat" target="_blank" rel="noopener" href="https://open.spotify.com/intl-tr/artist/447yNY9cW9O0mMJ7B5QObd">🎧 <b id="spN">—</b> aylık dinleyici</a>
-      <span class="statsauto" id="statsAuto">🕛 her gün 00.00’da otomatik güncellenir</span>
       <button class="statsupd hide" id="statsBtn">düzelt</button>
     </div>
     <div class="statsedit hide" id="statsEdit">
       <input id="igIn" type="number" inputmode="numeric" placeholder="Instagram takipçi">
+      <input id="spIn" type="number" inputmode="numeric" placeholder="Spotify aylık dinleyici">
       <button id="statsSave">Kaydet</button>
       <button id="statsCancel" class="alt">Vazgeç</button>
-      <div class="hint">Instagram sayısı otomatik alınamazsa buradan elle düzeltebilirsin.</div>
     </div>
   </div>
 
@@ -450,7 +463,11 @@
       <div class="social-tabs" id="socialTabs"><button data-social-pane="ideas" class="on">Fikir havuzu</button><button data-social-pane="approved">Onaylanan fikirler</button><button data-social-pane="calendar">Paylaşım takvimi</button></div>
       <div class="social-pane" id="socialPane-ideas"><div class="social-form"><b>Yeni içerik fikri</b><input id="ideaTitle" type="text" maxlength="100" placeholder="Fikir başlığı"><textarea id="ideaNote" maxlength="400" placeholder="Kısa açıklama (opsiyonel)"></textarea><button class="btn" id="ideaAdd">Fikri ekle</button></div><div id="ideaList"></div></div>
       <div class="social-pane hide" id="socialPane-approved"><div class="social-form"><b>Doğrudan onaylanan içerik ekle</b><input id="approvedTitle" type="text" maxlength="100" placeholder="İçerik / video adı"><textarea id="approvedNote" maxlength="400" placeholder="Brief veya not (opsiyonel)"></textarea><button class="btn green" id="approvedAdd">Onaylananlara ekle</button></div><div id="approvedList"></div></div>
-      <div class="social-pane hide" id="socialPane-calendar"><div class="social-form"><b>Paylaşım planla</b><div class="time-row"><input id="postDate" type="date"><input id="postTime" type="time"></div><select id="postType"><option value="reels">Reels</option><option value="tiktok">TikTok</option><option value="story">Story</option></select><select id="postContent"></select><input id="postTitle" type="text" maxlength="120" placeholder="Başlık / paylaşım notu"><button class="btn" id="postAdd">Takvime ekle</button></div><div id="postList"></div></div>
+      <div class="social-pane hide" id="socialPane-calendar">
+        <div class="monthnav"><button id="postPrevM" aria-label="Önceki ay">‹</button><div class="mtitle" id="postMTitle">—</div><button id="postNextM" aria-label="Sonraki ay">›</button></div>
+        <div class="cal social-cal" id="postCal"></div>
+        <div class="detail empty" id="postDetail">Paylaşım planlamak için bir gün seç.</div>
+      </div>
     </section>
 
     <!-- KONSER -->
@@ -512,6 +529,10 @@ function setMe(v){ try{ localStorage.setItem("bb_me",v); }catch(e){ _memMe=v; } 
 function clearMe(){ try{ localStorage.removeItem("bb_me"); }catch(e){ _memMe=null; } }
 function getDismiss(){ try{ return localStorage.getItem("bb_ann_dismiss"); }catch(e){ return _memDismiss; } }
 function setDismiss(v){ try{ localStorage.setItem("bb_ann_dismiss",v); }catch(e){ _memDismiss=v; } }
+function notifReadKey(){ return `bb_notif_read_${me||"guest"}`; }
+function getNotifReads(){ try{ const v=JSON.parse(localStorage.getItem(notifReadKey())||"[]"); return new Set(Array.isArray(v)?v:[]); }catch(e){ return new Set(); } }
+function saveNotifReads(set){ try{ localStorage.setItem(notifReadKey(),JSON.stringify([...set].slice(-500))); }catch(e){} }
+function markNotifRead(id){ if(!id)return; const s=getNotifReads(); s.add(id); saveNotifReads(s); renderNotifications(); }
 
 /* ===== state ===== */
 let state = emptyState();
@@ -522,12 +543,14 @@ let socialPane = "ideas";
 const now0 = new Date();
 let calY = now0.getFullYear(), calM = now0.getMonth();
 let scoreCalY = now0.getFullYear(), scoreCalM = now0.getMonth();
+let postCalY = now0.getFullYear(), postCalM = now0.getMonth(), postSelDate = null;
+let postDraftType = "reels_tiktok", postEditId = "";
 let selDate = null;
 let currentDay = todayKey();
 const pending = {};   // pending score for my card
 const openConcerts = new Set();
 
-function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{}}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[] }; }
+function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{}}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[], notifications:[] }; }
 function ensureShape(o){
   o.days=o.days||{}; o.dayAverages=o.dayAverages||{}; o.busy=o.busy||{};
   o.meetings=o.meetings||{}; o.meetings.content=o.meetings.content||{}; o.meetings.cookseh=o.meetings.cookseh||{}; o.meetings.studio=o.meetings.studio||{}; o.meetings.meeting=o.meetings.meeting||{};
@@ -537,7 +560,7 @@ function ensureShape(o){
     Object.keys(o.busy[p.key]).forEach(d=>{ o.busy[p.key][d]=normalizeBusyValue(o.busy[p.key][d]); });
   });
   Object.keys(o.days).forEach(d=>{ const s=daySummary(o.days[d]); if(s.count) o.dayAverages[d]={avg:s.avg,count:s.count,at:s.at}; });
-  o.stats=o.stats||{};
+  o.stats=o.stats||{}; if(o.stats.spManual===undefined&&o.stats.sp!==undefined)o.stats.spManual=o.stats.sp;
   o.video=o.video||{};
   if(typeof o.video.shot!=="number") o.video.shot=0;
   if(typeof o.video.finished!=="number") o.video.finished=0;
@@ -546,9 +569,13 @@ function ensureShape(o){
   EDITORS.forEach(k=>{ if(typeof o.video.edits[k]!=="number") o.video.edits[k]=0; });
   o.social=o.social||{};
   o.social.ideas=Array.isArray(o.social.ideas)?o.social.ideas:[]; o.social.contents=Array.isArray(o.social.contents)?o.social.contents:[]; o.social.posts=Array.isArray(o.social.posts)?o.social.posts:[]; o.social.assignmentCounts=o.social.assignmentCounts||{};
-  EDITORS.forEach(k=>{ if(typeof o.social.assignmentCounts[k]!=="number") o.social.assignmentCounts[k]=0; }); o.social.ideas.forEach(i=>{i.votes=(i.votes&&typeof i.votes==="object")?i.votes:{};}); o.social.contents.forEach(c=>{if(!["approved","editing","edited"].includes(c.status))c.status="approved";if(!EDITORS.includes(c.editor))c.editor=EDITORS[0];});
+  EDITORS.forEach(k=>{ if(typeof o.social.assignmentCounts[k]!=="number") o.social.assignmentCounts[k]=0; });
+  o.social.ideas.forEach(i=>{ i.votes=(i.votes&&typeof i.votes==="object")?i.votes:{}; i.rejects=(i.rejects&&typeof i.rejects==="object")?i.rejects:{}; });
+  o.social.contents.forEach(c=>{if(!["approved","editing","edited"].includes(c.status))c.status="approved";if(!EDITORS.includes(c.editor))c.editor=EDITORS[0];});
+  o.social.posts.forEach(p=>{ if(p.type==="reels"||p.type==="tiktok")p.type="reels_tiktok"; if(!["reels_tiktok","story"].includes(p.type))p.type="story"; });
   o.release=o.release||{}; o.release.lastDate=o.release.lastDate||"2026-03-06"; o.release.plans=Array.isArray(o.release.plans)?o.release.plans:[];
   o.announcement=o.announcement||{};
+  o.notifications=Array.isArray(o.notifications)?o.notifications:[]; o.notifications=o.notifications.filter(n=>n&&n.id&&Array.isArray(n.recipients)).slice(-200);
   o.concerts=Array.isArray(o.concerts)?o.concerts:[];
   o.concerts.forEach(c=>{
     c.id=c.id||("c"+Date.now()+Math.floor(Math.random()*999));
@@ -566,13 +593,16 @@ function ensureShape(o){
 }
 
 /* ===== cloud ===== */
+let _needsSpMigration=false;
 const setSync = t => { const s=document.getElementById("sync"); if(s) s.textContent=t; };
 async function cloudRead(){
   if(!configured()) return emptyState();
   const r = await fetch(`${API}/latest`,{headers:{"X-Master-Key":API_KEY}});
   if(!r.ok) throw new Error("read "+r.status);
   const j = await r.json();
-  return ensureShape(j.record||{});
+  const record=j.record||{};
+  _needsSpMigration=!(record.stats&&Object.prototype.hasOwnProperty.call(record.stats,"spManual"));
+  return ensureShape(record);
 }
 async function cloudWrite(o){
   if(!configured()) return false;
@@ -598,6 +628,76 @@ function todayKey(){ const d=new Date(); return `${d.getFullYear()}-${pad(d.getM
 function keyOf(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
 function prettyDate(){ try{return new Date().toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long"});}catch(e){return todayKey();} }
 function prettyKey(k){ try{const[y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long"});}catch(e){return k;} }
+
+/* ===== notifications ===== */
+const NOTIF_ICONS={editor:"🎬",meeting:"📅",concert:"🎤",concert_time:"⏰",release:"🎵",announcement:"📢",karne:"🏆",guest:"📝",vote:"💡"};
+function notifRecipients(keys,actor=me){ return [...new Set((keys||[]).filter(k=>PEOPLE.some(p=>p.key===k)&&k!==actor))]; }
+function pushNotification(o,type,title,text,recipients,target={}){
+  const rec=notifRecipients(recipients);
+  if(!rec.length)return;
+  o.notifications=Array.isArray(o.notifications)?o.notifications:[];
+  const at=Date.now();
+  o.notifications.push({id:`n${at}${Math.floor(Math.random()*9999)}`,type,title,text,recipients:rec,target,at,by:me});
+  o.notifications=o.notifications.slice(-200);
+}
+function meetingRecipientsFor(o,mode){
+  const usa=!!(o.settings&&o.settings.orkunUSA);
+  if(mode==="meeting")return PEOPLE.map(p=>p.key);
+  if(mode==="cookseh")return usa?["bora","emir"]:["orkun","bora","emir"];
+  return usa?["aziz","bora","emir"]:["aziz","orkun","bora","emir"];
+}
+function notificationTime(at){
+  if(!at)return "";
+  const d=new Date(at),now=new Date(),same=d.toDateString()===now.toDateString();
+  return same?d.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"}):d.toLocaleDateString("tr-TR",{day:"numeric",month:"short"})+" · "+d.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+}
+function dateTimeFor(date,time){
+  if(!date||!time)return null;
+  const [y,m,d]=date.split("-").map(Number),[h,mi]=time.split(":").map(Number);
+  if(!y||!m||!d||Number.isNaN(h)||Number.isNaN(mi))return null;
+  return new Date(y,m-1,d,h,mi,0,0);
+}
+function dynamicNotifications(){
+  if(!me)return [];
+  const out=[],now=new Date(),today=todayKey();
+  const todayScore=state.days&&state.days[today]&&state.days[today][me];
+  if(now.getHours()===23&&!todayScore) out.push({id:`cond-karne-${today}-${me}`,type:"karne",title:"Günlük karnene 1 saat kaldı",text:"Bugünkü puanını ve yaptıklarını gece yarısından önce gir.",persistent:true,target:{tab:"karne"},at:Date.now()});
+  const unvoted=(state.social&&state.social.ideas||[]).filter(i=>!(i.votes&&i.votes[me])&&!(i.rejects&&i.rejects[me]));
+  if(unvoted.length) out.push({id:`cond-vote-${me}`,type:"vote",title:"Oylanacak fikir var",text:`${unvoted.length} içerik fikrini henüz onaylamadın veya reddetmedin.`,persistent:true,target:{tab:"sosyal",pane:"ideas"},at:Date.now()});
+  (state.concerts||[]).forEach(c=>{
+    const door=dateTimeFor(c.date,c.doorsTime);
+    if(!door)return;
+    const diff=door.getTime()-Date.now(),mine=((c.guests||{})[me]||[]);
+    if(diff>0&&diff<=3600000&&!mine.length) out.push({id:`cond-guest-${c.id}-${me}`,type:"guest",title:"Davetli listesini kontrol et",text:`${[c.venue,c.city].filter(Boolean).join(" · ")||"Konser"} kapı açılışına 1 saatten az kaldı; listende isim görünmüyor.`,persistent:true,target:{tab:"konser",concertId:c.id},at:Date.now()});
+  });
+  return out;
+}
+function eventNotificationsForMe(){ return (state.notifications||[]).filter(n=>Array.isArray(n.recipients)&&n.recipients.includes(me)); }
+function openNotificationTarget(n){
+  const t=n.target||{};
+  if(!n.persistent)markNotifRead(n.id);
+  document.getElementById("notifPanel").classList.add("hide"); document.getElementById("notifBtn").setAttribute("aria-expanded","false");
+  if(t.pane) socialPane=t.pane;
+  if(t.mode){calMode=t.mode;selDate=t.date||selDate;if(t.date){const[y,m]=t.date.split("-").map(Number);calY=y;calM=m-1;}}
+  if(t.concertId)openConcerts.add(t.concertId);
+  activateTab(t.tab||"karne");
+}
+function renderNotifications(){
+  const btn=document.getElementById("notifBtn"),list=document.getElementById("notifList"); if(!btn||!list||!me)return;
+  const reads=getNotifReads(),dynamic=dynamicNotifications(),events=eventNotificationsForMe().slice().sort((a,b)=>(b.at||0)-(a.at||0));
+  const unreadEvents=events.filter(n=>!reads.has(n.id)),count=dynamic.length+unreadEvents.length,badge=document.getElementById("notifBadge");
+  badge.textContent=count>99?"99+":String(count);badge.classList.toggle("hide",count===0);
+  document.getElementById("notifSummary").textContent=count?`${count} bekleyen bildirim`:"Yeni bildirim yok";
+  const items=[...dynamic,...events.slice(0,40)]; list.innerHTML="";
+  if(!items.length){list.innerHTML='<div class="notif-empty">Şimdilik bildirim yok.</div>';return;}
+  items.forEach(n=>{const isUnread=n.persistent||!reads.has(n.id),b=document.createElement("button");b.type="button";b.className=`notif-item${isUnread?" unread":""}${n.persistent?" persistent":""}`;b.innerHTML=`<span class="notif-icon">${NOTIF_ICONS[n.type]||"🔔"}</span><span><div class="notif-title">${escapeHtml(n.title||"Bildirim")}</div><div class="notif-text">${escapeHtml(n.text||"")}</div>${n.persistent?"":`<div class="notif-time">${escapeHtml(notificationTime(n.at))}${isUnread?" · yeni":" · okundu"}</div>`}</span>`;b.onclick=()=>openNotificationTarget(n);list.appendChild(b);});
+}
+(function wireNotifications(){
+  const btn=document.getElementById("notifBtn"),panel=document.getElementById("notifPanel");
+  btn.onclick=()=>{const open=panel.classList.toggle("hide")===false;btn.setAttribute("aria-expanded",open?"true":"false");renderNotifications();};
+  document.getElementById("notifClose").onclick=()=>{panel.classList.add("hide");btn.setAttribute("aria-expanded","false");};
+  document.getElementById("notifReadAll").onclick=()=>{const s=getNotifReads();eventNotificationsForMe().forEach(n=>s.add(n.id));saveNotifReads(s);renderNotifications();};
+})();
 
 function daySummary(day){
   const vals=Object.values(day||{}).filter(e=>e&&typeof e.score==="number");
@@ -868,7 +968,7 @@ function renderModeDetail(dt,mode){
   const rm=document.getElementById("removeModeMeeting"); if(rm)rm.onclick=()=>mutate(o=>{delete o.meetings[mode][selDate];});
   const preview=()=>{const start=document.getElementById("mStart").value,end=document.getElementById("mEnd").value,sm=timeMinutes(start),em=endMinutes(end),el=document.getElementById("modePreview");if(sm===null||em===null||sm<480||em<=sm){el.textContent="08.00 sonrası geçerli saat seç.";return;}const conflicts=meetingConflictKeys(mode,selDate,start,end);el.textContent=conflicts.length?`Dolu: ${conflicts.map(nameOf).join(", ")}`:"Herkes bu saat aralığında müsait.";el.className=conflicts.length?"line warn":"line";};
   document.getElementById("mStart").addEventListener("input",preview); document.getElementById("mEnd").addEventListener("input",preview); preview();
-  document.getElementById("saveModeMeeting").onclick=()=>{const place=(document.getElementById("mPlace").value||"").trim(),start=document.getElementById("mStart").value,end=document.getElementById("mEnd").value,sm=timeMinutes(start),em=endMinutes(end),link=mode==='meeting'?(document.getElementById("mLink").value||"").trim():"";if(sm===null||em===null||sm<480||em<=sm){alert("08.00 sonrası geçerli başlangıç ve bitiş saati seç.");return;}if(mode==='meeting'&&!safeLink(link)){alert("Toplantı için geçerli bir Google Meet, Zoom veya benzeri bağlantı zorunlu.");return;}const conflicts=meetingConflictKeys(mode,selDate,start,end);if(conflicts.length){alert(`${conflicts.map(nameOf).join(", ")} bu saatlerde dolu. Buluşma oluşturulmadı.`);return;}mutate(o=>{o.meetings[mode]=o.meetings[mode]||{};o.meetings[mode][selDate]={place,start,end,time:`${start}–${end}`,link:mode==='meeting'?safeLink(link):"",by:me,at:Date.now()};});};
+  document.getElementById("saveModeMeeting").onclick=()=>{const place=(document.getElementById("mPlace").value||"").trim(),start=document.getElementById("mStart").value,end=document.getElementById("mEnd").value,sm=timeMinutes(start),em=endMinutes(end),link=mode==='meeting'?(document.getElementById("mLink").value||"").trim():"";if(sm===null||em===null||sm<480||em<=sm){alert("08.00 sonrası geçerli başlangıç ve bitiş saati seç.");return;}if(mode==='meeting'&&!safeLink(link)){alert("Toplantı için geçerli bir Google Meet, Zoom veya benzeri bağlantı zorunlu.");return;}const conflicts=meetingConflictKeys(mode,selDate,start,end);if(conflicts.length){alert(`${conflicts.map(nameOf).join(", ")} bu saatlerde dolu. Buluşma oluşturulmadı.`);return;}mutate(o=>{o.meetings[mode]=o.meetings[mode]||{};const existed=!!o.meetings[mode][selDate];o.meetings[mode][selDate]={place,start,end,time:`${start}–${end}`,link:mode==='meeting'?safeLink(link):"",by:me,at:Date.now()};pushNotification(o,"meeting",`${MLABEL[mode]} ${existed?"güncellendi":"planlandı"}`,`${prettyKey(selDate)} · ${start}–${end}${place?` · ${place}`:""}`,meetingRecipientsFor(o,mode),{tab:"takvim",mode,date:selDate});});};
 }
 function renderDetail(){const dt=document.getElementById("detail");if(!selDate){dt.className="detail empty";dt.textContent="Bir gün seç.";return;}dt.className="detail";if(calMode==="me")renderAvailabilityDetail(dt);else renderModeDetail(dt,calMode);}
 document.getElementById("usaTog").onclick=()=>mutate(o=>{o.settings.orkunUSA=!o.settings.orkunUSA;});
@@ -877,17 +977,14 @@ document.getElementById("nextM").onclick=()=>{calM++;if(calM>11){calM=0;calY++;}
 
 /* ===================== NAV ===================== */
 
-document.querySelectorAll("#nav button").forEach(b=> b.onclick=()=>{
-  tab=b.dataset.tab;
-  document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x===b));
-  document.getElementById("view-karne").classList.toggle("active",tab==="karne");
-  document.getElementById("view-takvim").classList.toggle("active",tab==="takvim");
-  document.getElementById("view-sosyal").classList.toggle("active",tab==="sosyal");
-  document.getElementById("view-konser").classList.toggle("active",tab==="konser");
-  document.getElementById("view-yayim").classList.toggle("active",tab==="yayim");
+function activateTab(nextTab){
+  tab=nextTab;
+  document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x.dataset.tab===tab));
+  ["karne","takvim","sosyal","konser","yayim"].forEach(x=>document.getElementById(`view-${x}`).classList.toggle("active",tab===x));
   window.scrollTo(0,0);
   renderAll();
-});
+}
+document.querySelectorAll("#nav button").forEach(b=> b.onclick=()=>activateTab(b.dataset.tab));
 document.getElementById("switchUser").onclick=()=>{ clearMe(); me=null; document.getElementById("main").style.display="none"; document.getElementById("login").style.display="flex"; };
 
 /* ===================== STATS (IG / Spotify) ===================== */
@@ -902,17 +999,17 @@ function renderStats(){
   const s=state.stats||{};
   const ig=document.getElementById("igN"), sp=document.getElementById("spN");
   if(!ig) return;
-  ig.textContent=fmt(s.ig); sp.textContent=fmt(s.sp);
+  ig.textContent=fmt(s.ig); sp.textContent=fmt(s.spManual);
   const btn=document.getElementById("statsBtn"); if(btn) btn.classList.toggle("hide", me!=="aziz");
 }
 (function wireStats(){
   const btn=document.getElementById("statsBtn"), ed=document.getElementById("statsEdit");
   if(!btn) return;
-  btn.onclick=()=>{ const s=state.stats||{}; document.getElementById("igIn").value=(s.ig??""); ed.classList.toggle("hide"); };
+  btn.onclick=()=>{ const s=state.stats||{}; document.getElementById("igIn").value=(s.ig??""); document.getElementById("spIn").value=(s.spManual??s.sp??""); ed.classList.toggle("hide"); };
   document.getElementById("statsCancel").onclick=()=> ed.classList.add("hide");
   document.getElementById("statsSave").onclick=()=>{
-    const ig=document.getElementById("igIn").value.trim();
-    if(ig!==""){ mutate(o=>{ o.stats=o.stats||{}; o.stats.ig=+ig; o.stats.igAt=Date.now(); }); }
+    const ig=document.getElementById("igIn").value.trim(),sp=document.getElementById("spIn").value.trim();
+    if(ig!==""||sp!==""){ mutate(o=>{ o.stats=o.stats||{}; if(ig!==""){o.stats.ig=+ig;o.stats.igAt=Date.now();} if(sp!==""){o.stats.spManual=+sp;o.stats.spManualAt=Date.now();} }); }
     ed.classList.add("hide");
   };
 })();
@@ -948,7 +1045,7 @@ document.getElementById("annXT").onclick=dismissAnn;
   document.getElementById("annPublish").onclick=()=>{
     const text=document.getElementById("annIn").value.trim(); if(!text) return;
     const until=Date.now()+_selDur*3600*1000;
-    mutate(o=>{ o.announcement={ text, at:Date.now(), until, by:me }; });
+    mutate(o=>{ const existed=!!(o.announcement&&o.announcement.text); o.announcement={ text, at:Date.now(), until, by:me }; pushNotification(o,"announcement",existed?"Duyuru güncellendi":"Yeni duyuru",text,PEOPLE.map(p=>p.key),{tab:"karne"}); });
     panel.classList.add("hide");
   };
   document.getElementById("annRemove").onclick=()=>{ mutate(o=>{ o.announcement={}; }); panel.classList.add("hide"); };
@@ -957,64 +1054,145 @@ document.getElementById("annXT").onclick=dismissAnn;
 /* ===================== SOSYAL ===================== */
 const SOCIAL_STEPS=["approved","editing","edited"];
 const SOCIAL_LABEL={approved:"Onaylandı",editing:"Editte",edited:"Editlendi"};
+const POST_LABEL={reels_tiktok:"Reels & TikTok",story:"Story"};
 function nextEditor(o){
   const counts=o.social.assignmentCounts||{};
   return EDITORS.slice().sort((a,b)=>(counts[a]||0)-(counts[b]||0)||EDITORS.indexOf(a)-EDITORS.indexOf(b))[0];
 }
 function addApprovedContent(o,title,note,sourceIdeaId=""){
   const editor=nextEditor(o); o.social.assignmentCounts[editor]=(o.social.assignmentCounts[editor]||0)+1;
-  o.social.contents.push({id:"ct"+Date.now()+Math.floor(Math.random()*999),title,note,status:"approved",editor,sourceIdeaId,by:me,at:Date.now()});
+  const content={id:"ct"+Date.now()+Math.floor(Math.random()*999),title,note,status:"approved",editor,sourceIdeaId,by:me,at:Date.now(),assignedAt:Date.now()};
+  o.social.contents.push(content);
+  pushNotification(o,"editor","Yeni video edit görevi",`“${title}” içeriği sana atandı.`,[editor],{tab:"sosyal",pane:"approved",contentId:content.id});
 }
 function renderSocialTabs(){
   document.querySelectorAll("#socialTabs button").forEach(b=>b.classList.toggle("on",b.dataset.socialPane===socialPane));
   ["ideas","approved","calendar"].forEach(x=>document.getElementById(`socialPane-${x}`).classList.toggle("hide",x!==socialPane));
 }
+function ideaVoteCount(i){return Object.keys(i.votes||{}).filter(k=>i.votes[k]).length;}
+function ideaRejectCount(i){return Object.keys(i.rejects||{}).filter(k=>i.rejects[k]).length;}
+function resolveIdea(o,i){
+  const approvals=ideaVoteCount(i),rejects=ideaRejectCount(i);
+  if(approvals>=3){addApprovedContent(o,i.title,i.note,i.id);o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);return true;}
+  if(rejects>=3){o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);return true;}
+  return false;
+}
 function renderIdeas(){
   const list=document.getElementById("ideaList"); list.innerHTML=""; const ideas=(state.social&&state.social.ideas)||[];
   if(!ideas.length){list.innerHTML='<div class="empty-state">Henüz oylanacak fikir yok.</div>';return;}
   ideas.slice().sort((a,b)=>(b.at||0)-(a.at||0)).forEach(i=>{
-    const votes=Object.keys(i.votes||{}).filter(k=>i.votes[k]).length,mine=!!(i.votes&&i.votes[me]);
+    const votes=ideaVoteCount(i),rejects=ideaRejectCount(i),mineApprove=!!(i.votes&&i.votes[me]),mineReject=!!(i.rejects&&i.rejects[me]);
     const card=document.createElement("div");card.className="social-card";
-    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(i.title||"İçerik fikri")}</div><span class="vote-pill ${votes>=3?'ok':''}">${votes}/5 onay</span></div>${i.note?`<div class="line">${escapeHtml(i.note)}</div>`:""}<div class="social-meta">${escapeHtml(nameOf(i.by))} ekledi</div><div class="vote-row"><button class="mini-btn ${mine?'pink':'green'}" data-vote="${i.id}">${mine?'Onayı geri çek':'Onayla'}</button>${(i.by===me||managers())?`<button class="mini-btn alt" data-del-idea="${i.id}">Sil</button>`:""}</div>`;
+    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(i.title||"İçerik fikri")}</div><span class="vote-pill ${votes>=3?'ok':''}">${votes}/5 onay</span><span class="vote-pill ${rejects>=3?'bad':''}">${rejects}/5 red</span></div>${i.note?`<div class="line">${escapeHtml(i.note)}</div>`:""}<div class="social-meta">${escapeHtml(nameOf(i.by))} ekledi</div><div class="vote-row"><button class="mini-btn ${mineApprove?'pink':'green'}" data-approve="${i.id}">${mineApprove?'Onayı geri çek':'Onayla'}</button><button class="mini-btn ${mineReject?'pink':'alt'}" data-reject="${i.id}">${mineReject?'Reddi geri çek':'Reddet'}</button>${(i.by===me||managers())?`<button class="mini-btn alt" data-del-idea="${i.id}">Sil</button>`:""}</div>`;
     list.appendChild(card);
   });
-  list.querySelectorAll("[data-vote]").forEach(b=>b.onclick=()=>mutate(o=>{const i=o.social.ideas.find(x=>x.id===b.dataset.vote);if(!i)return;i.votes=i.votes||{};i.votes[me]=!i.votes[me];const count=Object.values(i.votes).filter(Boolean).length;if(count>=3){addApprovedContent(o,i.title,i.note,i.id);o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);}}));
+  list.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>mutate(o=>{const i=o.social.ideas.find(x=>x.id===b.dataset.approve);if(!i)return;i.votes=i.votes||{};i.rejects=i.rejects||{};const next=!i.votes[me];i.votes[me]=next;if(next)delete i.rejects[me];resolveIdea(o,i);}));
+  list.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>mutate(o=>{const i=o.social.ideas.find(x=>x.id===b.dataset.reject);if(!i)return;i.votes=i.votes||{};i.rejects=i.rejects||{};const next=!i.rejects[me];i.rejects[me]=next;if(next)delete i.votes[me];resolveIdea(o,i);}));
   list.querySelectorAll("[data-del-idea]").forEach(b=>b.onclick=()=>mutate(o=>{o.social.ideas=o.social.ideas.filter(x=>x.id!==b.dataset.delIdea);}));
 }
 function pipelineHtml(status){const idx=SOCIAL_STEPS.indexOf(status);return `<div class="pipeline">${SOCIAL_STEPS.map((s,i)=>`<span class="${i<=idx?'on':''}">${SOCIAL_LABEL[s]}</span>`).join("")}<span>Paylaşıldı</span></div>`;}
+function canManageContentWorkflow(c){
+  return !!c && (me==="aziz" || c.editor===me);
+}
 function renderApproved(){
   const list=document.getElementById("approvedList");list.innerHTML="";const arr=(state.social&&state.social.contents)||[];
   if(!arr.length){list.innerHTML='<div class="empty-state">Onaylanan veya edit sürecindeki içerik yok.</div>';return;}
   arr.slice().sort((a,b)=>(b.at||0)-(a.at||0)).forEach(c=>{
     const card=document.createElement("div");card.className="social-card";
     const opts=EDITORS.map(k=>`<option value="${k}" ${c.editor===k?'selected':''}>${escapeHtml(nameOf(k))}</option>`).join("");
-    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(c.title)}</div><span class="status-pill">${SOCIAL_LABEL[c.status]||c.status}</span></div>${c.note?`<div class="line">${escapeHtml(c.note)}</div>`:""}${pipelineHtml(c.status)}<div class="card-actions"><span class="vote-pill">Editör: ${escapeHtml(nameOf(c.editor))}</span>${me==='aziz'?`<select class="editor-select" data-editor="${c.id}">${opts}</select>`:""}${c.status==='approved'?`<button class="mini-btn green" data-status="${c.id}" data-next="editing">Editte</button>`:""}${c.status==='editing'?`<button class="mini-btn green" data-status="${c.id}" data-next="edited">Editlendi</button>`:""}${c.status==='edited'?`<button class="mini-btn pink" data-share-content="${c.id}">Paylaşıldı</button>`:""}<button class="mini-btn alt" data-del-content="${c.id}">Sil</button></div>`;
+    const canFlow=canManageContentWorkflow(c);
+    const canDelete=managers();
+    let workflowButtons="";
+    if(canFlow){
+      if(c.status==="approved"){
+        workflowButtons+=`<button class="mini-btn green" data-status="${c.id}" data-next="editing">Editte</button>`;
+      }else if(c.status==="editing"){
+        workflowButtons+=`<button class="mini-btn alt" data-status="${c.id}" data-next="approved">Onaylandı'ya dön</button>`;
+        workflowButtons+=`<button class="mini-btn green" data-status="${c.id}" data-next="edited">Editlendi</button>`;
+      }else if(c.status==="edited"){
+        workflowButtons+=`<button class="mini-btn alt" data-status="${c.id}" data-next="editing">Editte'ye dön</button>`;
+        workflowButtons+=`<button class="mini-btn pink" data-share-content="${c.id}">Paylaşıldı</button>`;
+      }
+    }
+    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(c.title)}</div><span class="status-pill">${SOCIAL_LABEL[c.status]||c.status}</span></div>${c.note?`<div class="line">${escapeHtml(c.note)}</div>`:""}${pipelineHtml(c.status)}<div class="card-actions"><span class="vote-pill">Editör: ${escapeHtml(nameOf(c.editor))}</span>${me==='aziz'?`<select class="editor-select" data-editor="${c.id}">${opts}</select>`:""}${workflowButtons}${canDelete?`<button class="mini-btn alt" data-del-content="${c.id}">Sil</button>`:""}</div>`;
     list.appendChild(card);
   });
-  list.querySelectorAll("[data-editor]").forEach(x=>x.onchange=()=>mutate(o=>{const c=o.social.contents.find(z=>z.id===x.dataset.editor);if(c)c.editor=x.value;}));
-  list.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>mutate(o=>{const c=o.social.contents.find(z=>z.id===b.dataset.status);if(c)c.status=b.dataset.next;}));
-  list.querySelectorAll("[data-share-content]").forEach(b=>b.onclick=()=>{if(confirm("İçerik paylaşıldı olarak kapanıp uygulamadan kaldırılsın mı?"))mutate(o=>{const id=b.dataset.shareContent;o.social.contents=o.social.contents.filter(x=>x.id!==id);o.social.posts=o.social.posts.filter(x=>x.contentId!==id);});});
-  list.querySelectorAll("[data-del-content]").forEach(b=>b.onclick=()=>mutate(o=>{const id=b.dataset.delContent;o.social.contents=o.social.contents.filter(x=>x.id!==id);o.social.posts=o.social.posts.filter(x=>x.contentId!==id);}));
+  list.querySelectorAll("[data-editor]").forEach(x=>x.onchange=()=>mutate(o=>{
+    if(me!=="aziz")return;
+    const c=o.social.contents.find(z=>z.id===x.dataset.editor);
+    if(!c||c.editor===x.value)return;
+    c.editor=x.value;c.assignedAt=Date.now();
+    pushNotification(o,"editor","Yeni video edit görevi",`“${c.title}” içeriği sana atandı.`,[x.value],{tab:"sosyal",pane:"approved",contentId:c.id});
+  }));
+  list.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>mutate(o=>{
+    const c=o.social.contents.find(z=>z.id===b.dataset.status);
+    if(!c||!canManageContentWorkflow(c))return;
+    const allowed={
+      approved:["editing"],
+      editing:["approved","edited"],
+      edited:["editing"]
+    };
+    const next=b.dataset.next;
+    if((allowed[c.status]||[]).includes(next))c.status=next;
+  }));
+  list.querySelectorAll("[data-share-content]").forEach(b=>b.onclick=()=>{
+    const current=(state.social.contents||[]).find(x=>x.id===b.dataset.shareContent);
+    if(!current||!canManageContentWorkflow(current))return;
+    if(confirm("İçerik paylaşıldı olarak kapanıp uygulamadan kaldırılsın mı?"))mutate(o=>{
+      const id=b.dataset.shareContent;
+      const c=o.social.contents.find(x=>x.id===id);
+      if(!c||!canManageContentWorkflow(c))return;
+      o.social.contents=o.social.contents.filter(x=>x.id!==id);
+      o.social.posts=o.social.posts.filter(x=>x.contentId!==id);
+    });
+  });
+  list.querySelectorAll("[data-del-content]").forEach(b=>b.onclick=()=>{
+    if(!managers())return;
+    mutate(o=>{
+      if(!managers())return;
+      const id=b.dataset.delContent;
+      o.social.contents=o.social.contents.filter(x=>x.id!==id);
+      o.social.posts=o.social.posts.filter(x=>x.contentId!==id);
+    });
+  });
 }
-function updatePostContentOptions(){
-  const type=document.getElementById("postType").value,sel=document.getElementById("postContent"),edited=(state.social.contents||[]).filter(c=>c.status==="edited");
-  sel.innerHTML='<option value="">İçerik seçilmedi</option>'+edited.map(c=>`<option value="${c.id}">${escapeHtml(c.title)}</option>`).join("");
-  sel.classList.toggle("hide",type==="story"); sel.required=type==="reels";
+function socialPostsOn(date){return (state.social.posts||[]).filter(p=>p.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));}
+function renderSocialCalendar(){
+  const now=new Date(),cy=now.getFullYear(),cm=now.getMonth(),cd=now.getDate();
+  if(postCalY<cy||(postCalY===cy&&postCalM<cm)){postCalY=cy;postCalM=cm;postSelDate=null;}
+  const current=postCalY===cy&&postCalM===cm,first=current?cd:1;
+  document.getElementById("postPrevM").disabled=current;document.getElementById("postMTitle").textContent=`${TR_MONTHS[postCalM]} ${postCalY}`;
+  const cal=document.getElementById("postCal");cal.innerHTML="";DOW.forEach(d=>{const e=document.createElement("div");e.className="dow";e.textContent=d;cal.appendChild(e);});
+  const lead=(new Date(postCalY,postCalM,first).getDay()+6)%7,dim=new Date(postCalY,postCalM+1,0).getDate();for(let i=0;i<lead;i++){const b=document.createElement("div");b.className="cell blank";cal.appendChild(b);}
+  for(let d=first;d<=dim;d++){
+    const key=keyOf(postCalY,postCalM,d),posts=socialPostsOn(key),cell=document.createElement("div");cell.className="cell"+(posts.length?" has-post":"")+(key===postSelDate?" sel":"")+(key===todayKey()?" today":"");cell.dataset.key=key;
+    const rt=posts.filter(p=>p.type==="reels_tiktok").length,st=posts.filter(p=>p.type==="story").length;
+    cell.innerHTML=`<span class="dn">${d}</span>${posts.length?`<div class="post-cell-badges">${rt?`<span class="rt">R&T ${rt}</span>`:""}${st?`<span class="st">Story ${st}</span>`:""}</div>`:""}`;
+    cell.onclick=()=>{postSelDate=key;postEditId="";postDraftType="reels_tiktok";renderSocialCalendar();};cal.appendChild(cell);
+  }
+  renderPostDetail();
 }
-function renderPosts(){
-  updatePostContentOptions(); const list=document.getElementById("postList");list.innerHTML="";const posts=(state.social.posts||[]).slice().sort((a,b)=>(a.date+(a.time||"")).localeCompare(b.date+(b.time||"")));
-  if(!posts.length){list.innerHTML='<div class="empty-state">Planlanmış paylaşım yok.</div>';return;}
-  posts.forEach(post=>{const content=(state.social.contents||[]).find(c=>c.id===post.contentId),card=document.createElement("div");card.className="post-card";card.innerHTML=`<div class="post-date">${escapeHtml(post.date)}${post.time?`<br>${escapeHtml(post.time)}`:""}</div><div><span class="platform-badge">${escapeHtml(post.type)}</span><div class="guest-name">${escapeHtml(content?content.title:(post.title||"Paylaşım"))}</div>${post.note?`<div class="guest-note">${escapeHtml(post.note)}</div>`:""}</div><div class="card-actions"><button class="mini-btn green" data-edit-post="${post.id}">Düzenle</button><button class="mini-btn alt" data-del-post="${post.id}">Sil</button></div>`;list.appendChild(card);});
-  list.querySelectorAll("[data-del-post]").forEach(b=>b.onclick=()=>mutate(o=>{o.social.posts=o.social.posts.filter(x=>x.id!==b.dataset.delPost);}));
-  list.querySelectorAll("[data-edit-post]").forEach(b=>b.onclick=()=>{const post=state.social.posts.find(x=>x.id===b.dataset.editPost);if(!post)return;document.getElementById("postDate").value=post.date||"";document.getElementById("postTime").value=post.time||"";document.getElementById("postType").value=post.type||"story";updatePostContentOptions();document.getElementById("postContent").value=post.contentId||"";document.getElementById("postTitle").value=post.title||post.note||"";document.getElementById("postAdd").dataset.editId=post.id;document.getElementById("postAdd").textContent="Paylaşımı güncelle";window.scrollTo({top:document.getElementById("socialPane-calendar").offsetTop-30,behavior:"smooth"});});
+function postContentOptions(selected=""){
+  const edited=(state.social.contents||[]).filter(c=>c.status==="edited");
+  return '<option value="">Editlenmiş içerik seç</option>'+edited.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("");
 }
-function renderSocial(){renderSocialTabs();renderIdeas();renderApproved();renderPosts();}
+function renderPostDetail(){
+  const box=document.getElementById("postDetail");if(!postSelDate){box.className="detail empty";box.textContent="Paylaşım planlamak için bir gün seç.";return;}
+  box.className="detail";const posts=socialPostsOn(postSelDate),editing=postEditId?(state.social.posts||[]).find(p=>p.id===postEditId):null;if(editing)postDraftType=editing.type;
+  box.innerHTML=`<h3>${prettyKey(postSelDate)}</h3><div class="post-day-list" id="postDayList">${posts.length?posts.map(p=>{const c=(state.social.contents||[]).find(x=>x.id===p.contentId),title=c?c.title:(p.title||POST_LABEL[p.type]);return `<div class="post-day-card"><div class="post-day-time">${escapeHtml(p.time||"—")}</div><div><span class="platform-badge">${escapeHtml(POST_LABEL[p.type]||p.type)}</span><div class="guest-name">${escapeHtml(title)}</div>${p.note?`<div class="guest-note">${escapeHtml(p.note)}</div>`:""}</div><div class="card-actions"><button class="mini-btn green" data-edit-post="${p.id}">Düzenle</button><button class="mini-btn alt" data-del-post="${p.id}">Sil</button></div></div>`;}).join(""):'<div class="line">Bu güne paylaşım planlanmamış.</div>'}</div><div class="post-editor"><div class="social-form"><b>${editing?'Paylaşımı güncelle':'Bu güne paylaşım ekle'}</b><div class="platform-choice"><button type="button" data-post-kind="reels_tiktok" class="${postDraftType==='reels_tiktok'?'on':''}">Reels & TikTok</button><button type="button" data-post-kind="story" class="${postDraftType==='story'?'on':''}">Story</button></div><input id="postTime" type="time" value="${escapeHtml(editing&&editing.time||"")}"><select id="postContent" class="${postDraftType==='story'?'hide':''}">${postContentOptions(editing&&editing.contentId||"")}</select><input id="postTitle" type="text" maxlength="120" placeholder="Başlık / paylaşım notu" value="${escapeHtml(editing&&(editing.title||editing.note)||"")}"><div class="card-actions"><button class="btn" id="postAdd">${editing?'Paylaşımı güncelle':'Takvime ekle'}</button>${editing?'<button class="btn alt" id="postCancel">Vazgeç</button>':''}</div></div></div>`;
+  box.querySelectorAll("[data-post-kind]").forEach(b=>b.onclick=()=>{postDraftType=b.dataset.postKind;renderPostDetail();});
+  box.querySelectorAll("[data-del-post]").forEach(b=>b.onclick=()=>mutate(o=>{o.social.posts=o.social.posts.filter(x=>x.id!==b.dataset.delPost);if(postEditId===b.dataset.delPost)postEditId="";}));
+  box.querySelectorAll("[data-edit-post]").forEach(b=>b.onclick=()=>{postEditId=b.dataset.editPost;const p=(state.social.posts||[]).find(x=>x.id===postEditId);if(p)postDraftType=p.type;renderPostDetail();});
+  const cancel=document.getElementById("postCancel");if(cancel)cancel.onclick=()=>{postEditId="";postDraftType="reels_tiktok";renderPostDetail();};
+  document.getElementById("postAdd").onclick=()=>{const time=document.getElementById("postTime").value,contentId=document.getElementById("postContent").value,title=document.getElementById("postTitle").value.trim();if(postDraftType==="reels_tiktok"&&!contentId){alert("Reels & TikTok için Editlendi aşamasındaki videoyu seçmelisin.");return;}mutate(o=>{const data={date:postSelDate,time,type:postDraftType,contentId:postDraftType==="story"?"":contentId,title,note:title,by:me,at:Date.now()};if(postEditId){const p=o.social.posts.find(x=>x.id===postEditId);if(p)Object.assign(p,data);}else{o.social.posts.push({id:"p"+Date.now()+Math.floor(Math.random()*999),...data});}});postEditId="";postDraftType="reels_tiktok";};
+}
+function renderSocial(){renderSocialTabs();renderIdeas();renderApproved();if(socialPane==="calendar")renderSocialCalendar();}
 (function wireSocial(){
   document.querySelectorAll("#socialTabs button").forEach(b=>b.onclick=()=>{socialPane=b.dataset.socialPane;renderSocial();});
-  document.getElementById("ideaAdd").onclick=()=>{const title=document.getElementById("ideaTitle").value.trim(),note=document.getElementById("ideaNote").value.trim();if(!title){alert("Fikir başlığı yaz.");return;}mutate(o=>{o.social.ideas.push({id:"i"+Date.now()+Math.floor(Math.random()*999),title,note,by:me,at:Date.now(),votes:{[me]:true}});});document.getElementById("ideaTitle").value="";document.getElementById("ideaNote").value="";};
+  document.getElementById("ideaAdd").onclick=()=>{const title=document.getElementById("ideaTitle").value.trim(),note=document.getElementById("ideaNote").value.trim();if(!title){alert("Fikir başlığı yaz.");return;}mutate(o=>{o.social.ideas.push({id:"i"+Date.now()+Math.floor(Math.random()*999),title,note,by:me,at:Date.now(),votes:{[me]:true},rejects:{}});});document.getElementById("ideaTitle").value="";document.getElementById("ideaNote").value="";};
   document.getElementById("approvedAdd").onclick=()=>{const title=document.getElementById("approvedTitle").value.trim(),note=document.getElementById("approvedNote").value.trim();if(!title){alert("İçerik adı yaz.");return;}mutate(o=>addApprovedContent(o,title,note));document.getElementById("approvedTitle").value="";document.getElementById("approvedNote").value="";};
-  document.getElementById("postType").onchange=updatePostContentOptions;
-  document.getElementById("postAdd").onclick=()=>{const date=document.getElementById("postDate").value,time=document.getElementById("postTime").value,type=document.getElementById("postType").value,contentId=document.getElementById("postContent").value,title=document.getElementById("postTitle").value.trim(),editId=document.getElementById("postAdd").dataset.editId||"";if(!date){alert("Paylaşım tarihi seç.");return;}if(type==="reels"&&!contentId){alert("Reels için Editlendi aşamasındaki videoyu seçmelisin.");return;}mutate(o=>{const data={date,time,type,contentId:type==="story"?"":contentId,title,note:title,by:me,at:Date.now()};if(editId){const p=o.social.posts.find(x=>x.id===editId);if(p)Object.assign(p,data);}else{o.social.posts.push({id:"p"+Date.now()+Math.floor(Math.random()*999),...data});}});document.getElementById("postAdd").dataset.editId="";document.getElementById("postAdd").textContent="Takvime ekle";document.getElementById("postTitle").value="";};
+  document.getElementById("postPrevM").onclick=()=>{const n=new Date();if(postCalY===n.getFullYear()&&postCalM===n.getMonth())return;postCalM--;if(postCalM<0){postCalM=11;postCalY--;}postSelDate=null;renderSocialCalendar();};
+  document.getElementById("postNextM").onclick=()=>{postCalM++;if(postCalM>11){postCalM=0;postCalY++;}postSelDate=null;renderSocialCalendar();};
 })();
 
 /* ===================== YAYIM ===================== */
@@ -1027,7 +1205,7 @@ function renderRelease(){
   list.querySelectorAll("[data-del-release]").forEach(b=>b.onclick=()=>mutate(o=>{o.release.plans=o.release.plans.filter(x=>x.id!==b.dataset.delRelease);}));
   list.querySelectorAll("[data-edit-release]").forEach(b=>b.onclick=()=>{const x=state.release.plans.find(z=>z.id===b.dataset.editRelease);if(!x)return;document.getElementById("releaseDate").value=x.date;document.getElementById("releaseTitle").value=x.title;document.getElementById("releaseNote").value=x.note||"";document.getElementById("releaseAdd").dataset.editId=x.id;document.getElementById("releaseAdd").textContent="Yayımı güncelle";});
 }
-(function wireRelease(){document.getElementById("releaseAdd").onclick=()=>{const date=document.getElementById("releaseDate").value,title=document.getElementById("releaseTitle").value.trim(),note=document.getElementById("releaseNote").value.trim(),editId=document.getElementById("releaseAdd").dataset.editId||"";if(!date||!title){alert("Yayım tarihi ve şarkı adı zorunlu.");return;}mutate(o=>{const data={date,title,note,by:me,at:Date.now()};if(editId){const x=o.release.plans.find(z=>z.id===editId);if(x)Object.assign(x,data);}else{o.release.plans.push({id:"r"+Date.now()+Math.floor(Math.random()*999),...data});}});document.getElementById("releaseAdd").dataset.editId="";document.getElementById("releaseAdd").textContent="Yayım takvimine ekle";document.getElementById("releaseTitle").value="";document.getElementById("releaseNote").value="";};})();
+(function wireRelease(){document.getElementById("releaseAdd").onclick=()=>{const date=document.getElementById("releaseDate").value,title=document.getElementById("releaseTitle").value.trim(),note=document.getElementById("releaseNote").value.trim(),editId=document.getElementById("releaseAdd").dataset.editId||"";if(!date||!title){alert("Yayım tarihi ve şarkı adı zorunlu.");return;}mutate(o=>{const data={date,title,note,by:me,at:Date.now()};if(editId){const x=o.release.plans.find(z=>z.id===editId);if(x)Object.assign(x,data);}else{const item={id:"r"+Date.now()+Math.floor(Math.random()*999),...data};o.release.plans.push(item);pushNotification(o,"release","Yeni yayım planlandı",`“${title}” · ${prettyReleaseDate(date)}`,PEOPLE.map(p=>p.key),{tab:"yayim",releaseId:item.id});}});document.getElementById("releaseAdd").dataset.editId="";document.getElementById("releaseAdd").textContent="Yayım takvimine ekle";document.getElementById("releaseTitle").value="";document.getElementById("releaseNote").value="";};})();
 
 /* ===================== KONSER ===================== */
 
@@ -1110,7 +1288,16 @@ function buildTimeSection(c){
     const lab=document.createElement("label"); lab.textContent=label; box.appendChild(lab);
     if(managers()){
       const inp=inputEl("time",val); inp.setAttribute("aria-label",label);
-      inp.onchange=()=>updateConcert(c.id,x=>{ x[key]=inp.value; if(key==="stageTime") x.time=inp.value; });
+      inp.onchange=()=>mutate(o=>{
+        const x=findConcert(o,c.id); if(!x)return;
+        const before=x[key]||((key==="stageTime"&&x.time)||"");
+        const after=inp.value;
+        x[key]=after; if(key==="stageTime")x.time=after;
+        if(before!==after){
+          const text=after?`${label} saati ${after} olarak ayarlandı.`:`${label} saati kaldırıldı.`;
+          pushNotification(o,"concert_time","Konser programı güncellendi",text,PEOPLE.map(p=>p.key),{tab:"konser",concertId:c.id});
+        }
+      });
       box.appendChild(inp);
     }else{ const v=document.createElement("div"); v.className="timeval"; v.textContent=val||"—"; box.appendChild(v); }
     grid.appendChild(box);
@@ -1332,22 +1519,37 @@ function buildMoneySection(c){
     const venue=document.getElementById("kVenue").value.trim();
     const city=document.getElementById("kCity").value.trim();
     if(!date){ alert("Tarih seç."); return; }
-    mutate(o=>{ o.concerts=o.concerts||[]; const guests={}; PEOPLE.forEach(p=>guests[p.key]=[]); o.concerts.push({ id:"c"+Date.now()+Math.floor(Math.random()*999), date, time:stageTime, soundcheckTime, doorsTime, stageTime, venue, city, by:me, at:Date.now(), guests, setlistLink:"", setlistSongs:[], expenses:[], income:0 }); });
+    mutate(o=>{
+      o.concerts=o.concerts||[];
+      const guests={}; PEOPLE.forEach(p=>guests[p.key]=[]);
+      const item={ id:"c"+Date.now()+Math.floor(Math.random()*999), date, time:stageTime, soundcheckTime, doorsTime, stageTime, venue, city, by:me, at:Date.now(), guests, setlistLink:"", setlistSongs:[], expenses:[], income:0 };
+      o.concerts.push(item);
+      const where=[venue,city].filter(Boolean).join(" · ")||"Yeni konser";
+      const program=[soundcheckTime&&`Soundcheck ${soundcheckTime}`,doorsTime&&`Kapı ${doorsTime}`,stageTime&&`Sahne ${stageTime}`].filter(Boolean).join(" · ");
+      pushNotification(o,"concert","Yeni konser eklendi",`${where} · ${prettyKey(date)}${program?` · ${program}`:""}`,PEOPLE.map(p=>p.key),{tab:"konser",concertId:item.id});
+    });
     document.getElementById("kVenue").value=""; document.getElementById("kCity").value="";
     document.getElementById("kSoundcheck").value=""; document.getElementById("kDoors").value=""; document.getElementById("kStage").value="";
   };
 })();
 
 /* ===================== LOAD / LOOP ===================== */
-function renderAll(){ renderKarne(); renderKarneCalendar(); renderStats(); renderAnn(); if(tab==="takvim") renderTakvim(); if(tab==="sosyal") renderSocial(); if(tab==="konser") renderKonser(); if(tab==="yayim") renderRelease(); }
+function renderAll(){ renderKarne(); renderKarneCalendar(); renderStats(); renderAnn(); renderNotifications(); if(tab==="takvim") renderTakvim(); if(tab==="sosyal") renderSocial(); if(tab==="konser") renderKonser(); if(tab==="yayim") renderRelease(); }
 async function load(){
   if(!configured()){ renderAll(); return; }
   setSync("yükleniyor…");
-  try{ state=await cloudRead(); setSync("güncel"); }catch(e){ setSync("bağlantı hatası"); }
+  try{
+    state=await cloudRead();
+    if(_needsSpMigration){ const migrated=await cloudWrite(state); if(migrated)_needsSpMigration=false; }
+    setSync("güncel");
+  }catch(e){ setSync("bağlantı hatası"); }
   renderAll();
 }
+let lastNotifMinute="";
 function tickClock(){
   const now=new Date(),mid=new Date(now); mid.setHours(24,0,0,0);
+  const notifMinute=`${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}-${now.getMinutes()}`;
+  if(notifMinute!==lastNotifMinute){ lastNotifMinute=notifMinute; renderNotifications(); }
   let s=Math.max(0,Math.floor((mid-now)/1000));
   document.getElementById("cd").textContent=`${pad(Math.floor(s/3600))}:${pad(Math.floor((s%3600)/60))}:${pad(s%60)}`;
   const tkd=todayKey();
