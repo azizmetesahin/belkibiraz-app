@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
-<meta name="bb-build" content="onesignal-event-push-v3">
+<meta name="bb-build" content="social-workflow-v2.1">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -343,6 +343,16 @@
   .push-optin span{font-size:11px;color:var(--ink-soft);text-align:right}
   /* ===================== SOCIAL CALENDAR ===================== */
   .social-cal .cell.has-post{background:#fff;border-color:var(--purple);box-shadow:inset 0 -4px 0 rgba(155,93,229,.22)}.social-cal .cell.past{opacity:.55}.post-cell-badges{display:flex;flex-wrap:wrap;gap:2px;margin-top:auto;padding:0 3px 3px}.post-cell-badges span{font-family:"Space Mono",monospace;font-size:7.5px;line-height:1;border:1px solid var(--line);padding:3px;background:#fff}.post-cell-badges .rt{background:#ffe4f0}.post-cell-badges .st{background:#e4f8ea}.post-day-list{display:grid;gap:7px;margin:10px 0}.post-day-card{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;border:1.2px solid var(--line);background:#fff;padding:9px}.post-day-time{font-family:"Space Mono",monospace;font-size:10px;font-weight:800}.post-editor{border-top:1px dashed #bdb9c9;margin-top:12px;padding-top:12px}.post-editor .social-form{box-shadow:none;margin:0}.platform-choice{display:grid;grid-template-columns:1fr 1fr;gap:6px}.platform-choice button{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px;font-weight:800;cursor:pointer}.platform-choice button.on{background:var(--ink);color:#fff}.social-post-note{margin-top:6px}
+  .idea-comments{margin-top:11px;border-top:1px dashed #c7c3d5;padding-top:9px}
+  .idea-comments-title{font-family:"Space Mono",monospace;font-size:9px;font-weight:800;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  .idea-comment{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:start;border:1px solid #d8d4e2;background:#f8f7fb;padding:7px;margin-bottom:5px}
+  .idea-comment-by{font-family:"Space Mono",monospace;font-size:9px;font-weight:800;color:var(--purple)}
+  .idea-comment-text{font-size:12px;white-space:pre-wrap;word-break:break-word}
+  .idea-comment-time{font-family:"Space Mono",monospace;font-size:8px;color:var(--ink-soft);margin-top:2px}
+  .idea-comment-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;margin-top:7px}
+  .idea-comment-form input{min-width:0}
+  .ready-note{border:1.5px dashed #aaa;background:rgba(255,255,255,.55);padding:11px;margin-bottom:11px;color:var(--ink-soft);font-size:12px}
+
   /* ===================== RELEASE ===================== */
   .release-hero{border:1.5px solid var(--line);background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--pink);padding:18px;margin:10px 0 20px}.release-days{font-family:"Space Mono",monospace;font-size:34px;font-weight:900;line-height:1}.release-date{font-size:13px;color:#d8d4ed;margin-top:7px}.release-form{border:1.5px solid var(--line);background:#fff;padding:12px;display:grid;gap:8px;margin-bottom:14px}.release-card{border:1.5px solid var(--line);background:#fff;padding:12px;margin-bottom:9px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.release-card .rd{font-family:"Space Mono",monospace;font-size:11px;font-weight:800}
   /* ===================== BOTTOM NAV ===================== */
@@ -587,9 +597,41 @@ async function logoutOneSignalUser(){
     <!-- SOSYAL -->
     <section class="view" id="view-sosyal">
       <div class="eyebrow"><span class="dot"></span> sosyal medya üretim hattı</div><h1>Sosyal</h1>
-      <div class="social-tabs" id="socialTabs"><button data-social-pane="ideas" class="on">Fikir havuzu</button><button data-social-pane="approved">Onaylanan fikirler</button><button data-social-pane="calendar">Paylaşım takvimi</button></div>
-      <div class="social-pane" id="socialPane-ideas"><div class="social-form"><b>Yeni içerik fikri</b><input id="ideaTitle" type="text" maxlength="100" placeholder="Fikir başlığı"><textarea id="ideaNote" maxlength="400" placeholder="Kısa açıklama (opsiyonel)"></textarea><button class="btn" id="ideaAdd">Fikri ekle</button></div><div id="ideaList"></div></div>
-      <div class="social-pane hide" id="socialPane-approved"><div class="social-form"><b>Doğrudan onaylanan içerik ekle</b><input id="approvedTitle" type="text" maxlength="100" placeholder="İçerik / video adı"><textarea id="approvedNote" maxlength="400" placeholder="Brief veya not (opsiyonel)"></textarea><button class="btn green" id="approvedAdd">Onaylananlara ekle</button></div><div id="approvedList"></div></div>
+      <div class="social-tabs" id="socialTabs">
+        <button data-social-pane="ideas" class="on">Fikir Havuzu</button>
+        <button data-social-pane="approved">Onaylananlar</button>
+        <button data-social-pane="ready">Hazır Videolar</button>
+        <button data-social-pane="calendar">Paylaşım Takvimi</button>
+      </div>
+
+      <div class="social-pane" id="socialPane-ideas">
+        <div class="social-form" id="ideaForm">
+          <b id="ideaFormTitle">Yeni içerik fikri</b>
+          <input id="ideaTitle" type="text" maxlength="100" placeholder="Fikir başlığı">
+          <textarea id="ideaNote" maxlength="400" placeholder="Kısa açıklama (opsiyonel)"></textarea>
+          <div class="card-actions">
+            <button class="btn" id="ideaAdd">Fikri ekle</button>
+            <button class="btn alt hide" id="ideaCancel">Vazgeç</button>
+          </div>
+        </div>
+        <div id="ideaList"></div>
+      </div>
+
+      <div class="social-pane hide" id="socialPane-approved">
+        <div class="social-form">
+          <b>Doğrudan onaylanan içerik ekle</b>
+          <input id="approvedTitle" type="text" maxlength="100" placeholder="İçerik / video adı">
+          <textarea id="approvedNote" maxlength="400" placeholder="Brief veya not (opsiyonel)"></textarea>
+          <button class="btn green" id="approvedAdd">Onaylananlara ekle</button>
+        </div>
+        <div id="approvedList"></div>
+      </div>
+
+      <div class="social-pane hide" id="socialPane-ready">
+        <div class="ready-note">Editi tamamlanan videolar burada bekler. Reels & TikTok paylaşım planı oluştururken yalnızca bu listedeki videolar seçilebilir.</div>
+        <div id="readyList"></div>
+      </div>
+
       <div class="social-pane hide" id="socialPane-calendar">
         <div class="monthnav"><button id="postPrevM" aria-label="Önceki ay">‹</button><div class="mtitle" id="postMTitle">—</div><button id="postNextM" aria-label="Sonraki ay">›</button></div>
         <div class="cal social-cal" id="postCal"></div>
@@ -682,6 +724,7 @@ let calY = now0.getFullYear(), calM = now0.getMonth();
 let scoreCalY = now0.getFullYear(), scoreCalM = now0.getMonth();
 let postCalY = now0.getFullYear(), postCalM = now0.getMonth(), postSelDate = null;
 let postDraftType = "reels_tiktok", postEditId = "";
+let ideaEditId = "";
 let selDate = null;
 let currentDay = todayKey();
 const pending = {};   // pending score for my card
@@ -707,8 +750,15 @@ function ensureShape(o){
   o.social=o.social||{};
   o.social.ideas=Array.isArray(o.social.ideas)?o.social.ideas:[]; o.social.contents=Array.isArray(o.social.contents)?o.social.contents:[]; o.social.posts=Array.isArray(o.social.posts)?o.social.posts:[]; o.social.assignmentCounts=o.social.assignmentCounts||{};
   EDITORS.forEach(k=>{ if(typeof o.social.assignmentCounts[k]!=="number") o.social.assignmentCounts[k]=0; });
-  o.social.ideas.forEach(i=>{ i.votes=(i.votes&&typeof i.votes==="object")?i.votes:{}; i.rejects=(i.rejects&&typeof i.rejects==="object")?i.rejects:{}; });
-  o.social.contents.forEach(c=>{if(!["approved","editing","edited"].includes(c.status))c.status="approved";if(!EDITORS.includes(c.editor))c.editor=EDITORS[0];});
+  o.social.ideas.forEach(i=>{
+    i.votes=(i.votes&&typeof i.votes==="object")?i.votes:{};
+    i.rejects=(i.rejects&&typeof i.rejects==="object")?i.rejects:{};
+    i.comments=Array.isArray(i.comments)?i.comments.filter(c=>c&&c.id&&c.text):[];
+  });
+  o.social.contents.forEach(c=>{
+    if(!["approved","shot","editing","edited"].includes(c.status))c.status="approved";
+    if(!EDITORS.includes(c.editor))c.editor=EDITORS[0];
+  });
   o.social.posts.forEach(p=>{ if(p.type==="reels"||p.type==="tiktok")p.type="reels_tiktok"; if(!["reels_tiktok","story"].includes(p.type))p.type="story"; });
   o.release=o.release||{}; o.release.lastDate=o.release.lastDate||"2026-03-06"; o.release.plans=Array.isArray(o.release.plans)?o.release.plans:[];
   o.announcement=o.announcement||{};
@@ -1240,148 +1290,492 @@ document.getElementById("annXT").onclick=dismissAnn;
 })();
 
 /* ===================== SOSYAL ===================== */
-const SOCIAL_STEPS=["approved","editing","edited"];
-const SOCIAL_LABEL={approved:"Onaylandı",editing:"Editte",edited:"Editlendi"};
+const SOCIAL_STEPS=["approved","shot","editing","edited"];
+const SOCIAL_LABEL={approved:"Onaylandı",shot:"Çekildi",editing:"Editleniyor",edited:"Editlendi"};
 const POST_LABEL={reels_tiktok:"Reels & TikTok",story:"Story"};
+
 function nextEditor(o){
   const counts=o.social.assignmentCounts||{};
   return EDITORS.slice().sort((a,b)=>(counts[a]||0)-(counts[b]||0)||EDITORS.indexOf(a)-EDITORS.indexOf(b))[0];
 }
 function addApprovedContent(o,title,note,sourceIdeaId=""){
-  const editor=nextEditor(o); o.social.assignmentCounts[editor]=(o.social.assignmentCounts[editor]||0)+1;
-  const content={id:"ct"+Date.now()+Math.floor(Math.random()*999),title,note,status:"approved",editor,sourceIdeaId,by:me,at:Date.now(),assignedAt:Date.now()};
+  const editor=nextEditor(o);
+  o.social.assignmentCounts[editor]=(o.social.assignmentCounts[editor]||0)+1;
+  const content={
+    id:"ct"+Date.now()+Math.floor(Math.random()*999),
+    title,note,status:"approved",editor,sourceIdeaId,by:me,
+    at:Date.now(),assignedAt:Date.now()
+  };
   o.social.contents.push(content);
   pushNotification(o,"editor","Yeni video edit görevi",`“${title}” içeriği sana atandı.`,[editor],{tab:"sosyal",pane:"approved",contentId:content.id});
 }
 function renderSocialTabs(){
   document.querySelectorAll("#socialTabs button").forEach(b=>b.classList.toggle("on",b.dataset.socialPane===socialPane));
-  ["ideas","approved","calendar"].forEach(x=>document.getElementById(`socialPane-${x}`).classList.toggle("hide",x!==socialPane));
+  ["ideas","approved","ready","calendar"].forEach(x=>{
+    const pane=document.getElementById(`socialPane-${x}`);
+    if(pane)pane.classList.toggle("hide",x!==socialPane);
+  });
 }
 function ideaVoteCount(i){return Object.keys(i.votes||{}).filter(k=>i.votes[k]).length;}
 function ideaRejectCount(i){return Object.keys(i.rejects||{}).filter(k=>i.rejects[k]).length;}
+function socialDateTime(at){
+  try{
+    return new Date(at).toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+  }catch(e){return "";}
+}
 function resolveIdea(o,i){
   const approvals=ideaVoteCount(i),rejects=ideaRejectCount(i);
-  if(approvals>=3){addApprovedContent(o,i.title,i.note,i.id);o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);return true;}
-  if(rejects>=3){o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);return true;}
+  if(approvals>=3){
+    addApprovedContent(o,i.title,i.note,i.id);
+    o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);
+    return true;
+  }
+  if(rejects>=3){
+    o.social.ideas=o.social.ideas.filter(x=>x.id!==i.id);
+    return true;
+  }
   return false;
 }
+function resetIdeaForm(){
+  ideaEditId="";
+  document.getElementById("ideaTitle").value="";
+  document.getElementById("ideaNote").value="";
+  document.getElementById("ideaFormTitle").textContent="Yeni içerik fikri";
+  document.getElementById("ideaAdd").textContent="Fikri ekle";
+  document.getElementById("ideaCancel").classList.add("hide");
+}
+function startIdeaEdit(id){
+  const idea=(state.social.ideas||[]).find(i=>i.id===id);
+  if(!idea||idea.by!==me)return;
+  ideaEditId=id;
+  document.getElementById("ideaTitle").value=idea.title||"";
+  document.getElementById("ideaNote").value=idea.note||"";
+  document.getElementById("ideaFormTitle").textContent="Fikri düzenle";
+  document.getElementById("ideaAdd").textContent="Fikri güncelle";
+  document.getElementById("ideaCancel").classList.remove("hide");
+  document.getElementById("ideaForm").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function ideaCommentsHtml(i){
+  const comments=(i.comments||[]).slice().sort((a,b)=>(a.at||0)-(b.at||0));
+  const rows=comments.map(c=>`
+    <div class="idea-comment">
+      <div>
+        <div class="idea-comment-by">${escapeHtml(nameOf(c.by)||c.by||"Üye")}</div>
+        <div class="idea-comment-text">${escapeHtml(c.text||"")}</div>
+        <div class="idea-comment-time">${escapeHtml(socialDateTime(c.at))}</div>
+      </div>
+      ${(c.by===me||managers())?`<button class="mini-btn alt" data-del-comment="${c.id}" data-idea-id="${i.id}" title="Yorumu sil">×</button>`:""}
+    </div>`).join("");
+  return `
+    <div class="idea-comments">
+      <div class="idea-comments-title">Yorumlar${comments.length?` · ${comments.length}`:""}</div>
+      ${rows||'<div class="line">Henüz yorum yok.</div>'}
+      <div class="idea-comment-form">
+        <input type="text" maxlength="300" data-comment-input="${i.id}" placeholder="Yorum yaz">
+        <button class="mini-btn green" data-add-comment="${i.id}">Gönder</button>
+      </div>
+    </div>`;
+}
 function renderIdeas(){
-  const list=document.getElementById("ideaList"); list.innerHTML=""; const ideas=(state.social&&state.social.ideas)||[];
-  if(!ideas.length){list.innerHTML='<div class="empty-state">Henüz oylanacak fikir yok.</div>';return;}
+  const list=document.getElementById("ideaList");
+  list.innerHTML="";
+  const ideas=(state.social&&state.social.ideas)||[];
+  if(!ideas.length){
+    list.innerHTML='<div class="empty-state">Henüz oylanacak fikir yok.</div>';
+    return;
+  }
   ideas.slice().sort((a,b)=>(b.at||0)-(a.at||0)).forEach(i=>{
-    const votes=ideaVoteCount(i),rejects=ideaRejectCount(i),mineApprove=!!(i.votes&&i.votes[me]),mineReject=!!(i.rejects&&i.rejects[me]);
-    const card=document.createElement("div");card.className="social-card";
-    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(i.title||"İçerik fikri")}</div><span class="vote-pill ${votes>=3?'ok':''}">${votes}/5 onay</span><span class="vote-pill ${rejects>=3?'bad':''}">${rejects}/5 red</span></div>${i.note?`<div class="line">${escapeHtml(i.note)}</div>`:""}<div class="social-meta">${escapeHtml(nameOf(i.by))} ekledi</div><div class="vote-row"><button class="mini-btn ${mineApprove?'pink':'green'}" data-approve="${i.id}">${mineApprove?'Onayı geri çek':'Onayla'}</button><button class="mini-btn ${mineReject?'pink':'alt'}" data-reject="${i.id}">${mineReject?'Reddi geri çek':'Reddet'}</button>${(i.by===me||managers())?`<button class="mini-btn alt" data-del-idea="${i.id}">Sil</button>`:""}</div>`;
+    const votes=ideaVoteCount(i),rejects=ideaRejectCount(i);
+    const mineApprove=!!(i.votes&&i.votes[me]),mineReject=!!(i.rejects&&i.rejects[me]);
+    const card=document.createElement("div");
+    card.className="social-card";
+    card.dataset.ideaCard=i.id;
+    card.innerHTML=`
+      <div class="social-card-head">
+        <div class="social-card-title">${escapeHtml(i.title||"İçerik fikri")}</div>
+        <span class="vote-pill ${votes>=3?'ok':''}">${votes}/5 onay</span>
+        <span class="vote-pill ${rejects>=3?'bad':''}">${rejects}/5 red</span>
+      </div>
+      ${i.note?`<div class="line">${escapeHtml(i.note)}</div>`:""}
+      <div class="social-meta">${escapeHtml(nameOf(i.by))} ekledi${i.updatedAt?` · düzenlendi ${escapeHtml(socialDateTime(i.updatedAt))}`:""}</div>
+      <div class="vote-row">
+        <button type="button" class="mini-btn ${mineApprove?'pink':'green'}" data-approve="${i.id}">${mineApprove?'Onayı geri çek':'Onayla'}</button>
+        <button type="button" class="mini-btn ${mineReject?'pink':'alt'}" data-reject="${i.id}">${mineReject?'Reddi geri çek':'Reddet'}</button>
+        ${i.by===me?`<button type="button" class="mini-btn green" data-edit-idea="${i.id}">Düzenle</button>`:""}
+        ${(i.by===me||managers())?`<button type="button" class="mini-btn alt" data-del-idea="${i.id}">Sil</button>`:""}
+      </div>
+      ${ideaCommentsHtml(i)}`;
     list.appendChild(card);
   });
-  list.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>mutate(o=>{const i=o.social.ideas.find(x=>x.id===b.dataset.approve);if(!i)return;i.votes=i.votes||{};i.rejects=i.rejects||{};const next=!i.votes[me];i.votes[me]=next;if(next)delete i.rejects[me];resolveIdea(o,i);}));
-  list.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>mutate(o=>{const i=o.social.ideas.find(x=>x.id===b.dataset.reject);if(!i)return;i.votes=i.votes||{};i.rejects=i.rejects||{};const next=!i.rejects[me];i.rejects[me]=next;if(next)delete i.votes[me];resolveIdea(o,i);}));
-  list.querySelectorAll("[data-del-idea]").forEach(b=>b.onclick=()=>mutate(o=>{o.social.ideas=o.social.ideas.filter(x=>x.id!==b.dataset.delIdea);}));
+
+  list.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>mutate(o=>{
+    const i=o.social.ideas.find(x=>x.id===b.dataset.approve);
+    if(!i)return;
+    i.votes=i.votes||{};i.rejects=i.rejects||{};
+    const next=!i.votes[me];
+    i.votes[me]=next;
+    if(next)delete i.rejects[me];
+    resolveIdea(o,i);
+  }));
+  list.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>mutate(o=>{
+    const i=o.social.ideas.find(x=>x.id===b.dataset.reject);
+    if(!i)return;
+    i.votes=i.votes||{};i.rejects=i.rejects||{};
+    const next=!i.rejects[me];
+    i.rejects[me]=next;
+    if(next)delete i.votes[me];
+    resolveIdea(o,i);
+  }));
+  list.querySelectorAll("[data-edit-idea]").forEach(b=>b.onclick=()=>startIdeaEdit(b.dataset.editIdea));
+  list.querySelectorAll("[data-del-idea]").forEach(b=>b.onclick=e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const ideaId=String(b.dataset.delIdea||"");
+    if(!ideaId)return;
+    const current=(state.social.ideas||[]).find(x=>String(x.id)===ideaId);
+    if(!current||!(current.by===me||managers()))return;
+    if(!confirm("Bu fikir silinsin mi?"))return;
+    mutate(o=>{
+      const idea=(o.social.ideas||[]).find(x=>String(x.id)===ideaId);
+      if(!idea||!(idea.by===me||managers()))return;
+      o.social.ideas=o.social.ideas.filter(x=>String(x.id)!==ideaId);
+      if(ideaEditId===ideaId)ideaEditId="";
+    });
+  });
+  list.querySelectorAll("[data-add-comment]").forEach(b=>{
+    const submit=()=>{
+      const card=b.closest("[data-idea-card]");
+      const input=card&&card.querySelector(`[data-comment-input="${b.dataset.addComment}"]`);
+      const value=input?input.value.trim():"";
+      if(!value)return;
+      mutate(o=>{
+        const i=o.social.ideas.find(x=>x.id===b.dataset.addComment);
+        if(!i)return;
+        i.comments=Array.isArray(i.comments)?i.comments:[];
+        i.comments.push({
+          id:"ic"+Date.now()+Math.floor(Math.random()*999),
+          text:value,by:me,at:Date.now()
+        });
+      });
+      if(input)input.value="";
+    };
+    b.onclick=submit;
+    const card=b.closest("[data-idea-card]");
+    const input=card&&card.querySelector(`[data-comment-input="${b.dataset.addComment}"]`);
+    if(input)input.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();submit();}};
+  });
+  list.querySelectorAll("[data-del-comment]").forEach(b=>b.onclick=()=>mutate(o=>{
+    const i=o.social.ideas.find(x=>x.id===b.dataset.ideaId);
+    if(!i)return;
+    i.comments=(i.comments||[]).filter(c=>c.id!==b.dataset.delComment||(c.by!==me&&!managers()));
+  }));
 }
-function pipelineHtml(status){const idx=SOCIAL_STEPS.indexOf(status);return `<div class="pipeline">${SOCIAL_STEPS.map((s,i)=>`<span class="${i<=idx?'on':''}">${SOCIAL_LABEL[s]}</span>`).join("")}<span>Paylaşıldı</span></div>`;}
+function pipelineHtml(status){
+  const idx=SOCIAL_STEPS.indexOf(status);
+  return `<div class="pipeline">${SOCIAL_STEPS.map((s,i)=>`<span class="${i<=idx?'on':''}">${SOCIAL_LABEL[s]}</span>`).join("")}</div>`;
+}
 function canAssignEditors(){ return me==="aziz" || me==="bora"; }
-function canManageContentWorkflow(c){
-  return !!c && (me==="aziz" || c.editor===me);
+function canManageContentWorkflow(c){ return !!c && (me==="aziz" || c.editor===me); }
+
+function workflowButtons(c){
+  if(!canManageContentWorkflow(c))return "";
+  if(c.status==="approved"){
+    return `<button class="mini-btn green" data-status="${c.id}" data-next="shot">Çekildi</button>`;
+  }
+  if(c.status==="shot"){
+    return `<button class="mini-btn alt" data-status="${c.id}" data-next="approved">Onaylandı'ya dön</button>
+            <button class="mini-btn green" data-status="${c.id}" data-next="editing">Editleniyor</button>`;
+  }
+  if(c.status==="editing"){
+    return `<button class="mini-btn alt" data-status="${c.id}" data-next="shot">Çekildi'ye dön</button>
+            <button class="mini-btn green" data-status="${c.id}" data-next="edited">Editlendi</button>`;
+  }
+  if(c.status==="edited"){
+    return `<button class="mini-btn alt" data-status="${c.id}" data-next="editing">Editleniyor'a dön</button>`;
+  }
+  return "";
 }
-function renderApproved(){
-  const list=document.getElementById("approvedList");list.innerHTML="";const arr=(state.social&&state.social.contents)||[];
-  if(!arr.length){list.innerHTML='<div class="empty-state">Onaylanan veya edit sürecindeki içerik yok.</div>';return;}
-  arr.slice().sort((a,b)=>(b.at||0)-(a.at||0)).forEach(c=>{
-    const card=document.createElement("div");card.className="social-card";
-    const opts=EDITORS.map(k=>`<option value="${k}" ${c.editor===k?'selected':''}>${escapeHtml(nameOf(k))}</option>`).join("");
-    const canFlow=canManageContentWorkflow(c);
-    const canDelete=managers();
-    let workflowButtons="";
-    if(canFlow){
-      if(c.status==="approved"){
-        workflowButtons+=`<button class="mini-btn green" data-status="${c.id}" data-next="editing">Editte</button>`;
-      }else if(c.status==="editing"){
-        workflowButtons+=`<button class="mini-btn alt" data-status="${c.id}" data-next="approved">Onaylandı'ya dön</button>`;
-        workflowButtons+=`<button class="mini-btn green" data-status="${c.id}" data-next="edited">Editlendi</button>`;
-      }else if(c.status==="edited"){
-        workflowButtons+=`<button class="mini-btn alt" data-status="${c.id}" data-next="editing">Editte'ye dön</button>`;
-        workflowButtons+=`<button class="mini-btn pink" data-share-content="${c.id}">Paylaşıldı</button>`;
-      }
-    }
-    card.innerHTML=`<div class="social-card-head"><div class="social-card-title">${escapeHtml(c.title)}</div><span class="status-pill">${SOCIAL_LABEL[c.status]||c.status}</span></div>${c.note?`<div class="line">${escapeHtml(c.note)}</div>`:""}${pipelineHtml(c.status)}<div class="card-actions"><span class="vote-pill">Editör: ${escapeHtml(nameOf(c.editor))}</span>${canAssignEditors()?`<select class="editor-select" data-editor="${c.id}">${opts}</select>`:""}${workflowButtons}${canDelete?`<button class="mini-btn alt" data-del-content="${c.id}">Sil</button>`:""}</div>`;
-    list.appendChild(card);
-  });
+function contentCardHtml(c){
+  const opts=EDITORS.map(k=>`<option value="${k}" ${c.editor===k?'selected':''}>${escapeHtml(nameOf(k))}</option>`).join("");
+  return `
+    <div class="social-card-head">
+      <div class="social-card-title">${escapeHtml(c.title)}</div>
+      <span class="status-pill">${SOCIAL_LABEL[c.status]||c.status}</span>
+    </div>
+    ${c.note?`<div class="line">${escapeHtml(c.note)}</div>`:""}
+    ${pipelineHtml(c.status)}
+    <div class="card-actions">
+      <span class="vote-pill">Editör: ${escapeHtml(nameOf(c.editor))}</span>
+      ${canAssignEditors()?`<select class="editor-select" data-editor="${c.id}">${opts}</select>`:""}
+      ${workflowButtons(c)}
+      ${managers()?`<button class="mini-btn alt" data-del-content="${c.id}">Sil</button>`:""}
+    </div>`;
+}
+function wireContentList(list){
   list.querySelectorAll("[data-editor]").forEach(x=>x.onchange=()=>mutate(o=>{
     if(!canAssignEditors())return;
     const c=o.social.contents.find(z=>z.id===x.dataset.editor);
     if(!c||c.editor===x.value)return;
     c.editor=x.value;c.assignedAt=Date.now();
-    pushNotification(o,"editor","Yeni video edit görevi",`“${c.title}” içeriği sana atandı.`,[x.value],{tab:"sosyal",pane:"approved",contentId:c.id},true);
+    pushNotification(o,"editor","Yeni video edit görevi",`“${c.title}” içeriği sana atandı.`,[x.value],{tab:"sosyal",pane:c.status==="edited"?"ready":"approved",contentId:c.id},true);
   }));
   list.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>mutate(o=>{
     const c=o.social.contents.find(z=>z.id===b.dataset.status);
     if(!c||!canManageContentWorkflow(c))return;
     const allowed={
-      approved:["editing"],
-      editing:["approved","edited"],
+      approved:["shot"],
+      shot:["approved","editing"],
+      editing:["shot","edited"],
       edited:["editing"]
     };
     const next=b.dataset.next;
     if((allowed[c.status]||[]).includes(next))c.status=next;
   }));
-  list.querySelectorAll("[data-share-content]").forEach(b=>b.onclick=()=>{
-    const current=(state.social.contents||[]).find(x=>x.id===b.dataset.shareContent);
-    if(!current||!canManageContentWorkflow(current))return;
-    if(confirm("İçerik paylaşıldı olarak kapanıp uygulamadan kaldırılsın mı?"))mutate(o=>{
-      const id=b.dataset.shareContent;
-      const c=o.social.contents.find(x=>x.id===id);
-      if(!c||!canManageContentWorkflow(c))return;
-      o.social.contents=o.social.contents.filter(x=>x.id!==id);
-      o.social.posts=o.social.posts.filter(x=>x.contentId!==id);
-    });
-  });
   list.querySelectorAll("[data-del-content]").forEach(b=>b.onclick=()=>{
     if(!managers())return;
-    mutate(o=>{
-      if(!managers())return;
+    if(confirm("Bu içerik silinsin mi?"))mutate(o=>{
       const id=b.dataset.delContent;
       o.social.contents=o.social.contents.filter(x=>x.id!==id);
       o.social.posts=o.social.posts.filter(x=>x.contentId!==id);
     });
   });
 }
-function socialPostsOn(date){return (state.social.posts||[]).filter(p=>p.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));}
+function renderApproved(){
+  const list=document.getElementById("approvedList");
+  list.innerHTML="";
+  const arr=((state.social&&state.social.contents)||[])
+    .filter(c=>c.status!=="edited")
+    .slice().sort((a,b)=>(b.at||0)-(a.at||0));
+  if(!arr.length){
+    list.innerHTML='<div class="empty-state">Onaylanan, çekilen veya editlenen içerik yok.</div>';
+    return;
+  }
+  arr.forEach(c=>{
+    const card=document.createElement("div");
+    card.className="social-card";
+    card.innerHTML=contentCardHtml(c);
+    list.appendChild(card);
+  });
+  wireContentList(list);
+}
+function renderReady(){
+  const list=document.getElementById("readyList");
+  list.innerHTML="";
+  const arr=((state.social&&state.social.contents)||[])
+    .filter(c=>c.status==="edited")
+    .slice().sort((a,b)=>(b.at||0)-(a.at||0));
+  if(!arr.length){
+    list.innerHTML='<div class="empty-state">Henüz hazır video yok.</div>';
+    return;
+  }
+  arr.forEach(c=>{
+    const card=document.createElement("div");
+    card.className="social-card";
+    card.innerHTML=contentCardHtml(c);
+    list.appendChild(card);
+  });
+  wireContentList(list);
+}
+function socialPostsOn(date){
+  return (state.social.posts||[]).filter(p=>p.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+}
 function renderSocialCalendar(){
   const now=new Date(),cy=now.getFullYear(),cm=now.getMonth(),cd=now.getDate();
-  if(postCalY<cy||(postCalY===cy&&postCalM<cm)){postCalY=cy;postCalM=cm;postSelDate=null;}
+  if(postCalY<cy||(postCalY===cy&&postCalM<cm)){
+    postCalY=cy;postCalM=cm;postSelDate=null;
+  }
   const current=postCalY===cy&&postCalM===cm,first=current?cd:1;
-  document.getElementById("postPrevM").disabled=current;document.getElementById("postMTitle").textContent=`${TR_MONTHS[postCalM]} ${postCalY}`;
-  const cal=document.getElementById("postCal");cal.innerHTML="";DOW.forEach(d=>{const e=document.createElement("div");e.className="dow";e.textContent=d;cal.appendChild(e);});
-  const lead=(new Date(postCalY,postCalM,first).getDay()+6)%7,dim=new Date(postCalY,postCalM+1,0).getDate();for(let i=0;i<lead;i++){const b=document.createElement("div");b.className="cell blank";cal.appendChild(b);}
+  document.getElementById("postPrevM").disabled=current;
+  document.getElementById("postMTitle").textContent=`${TR_MONTHS[postCalM]} ${postCalY}`;
+  const cal=document.getElementById("postCal");
+  cal.innerHTML="";
+  DOW.forEach(d=>{
+    const e=document.createElement("div");
+    e.className="dow";e.textContent=d;cal.appendChild(e);
+  });
+  const lead=(new Date(postCalY,postCalM,first).getDay()+6)%7;
+  const dim=new Date(postCalY,postCalM+1,0).getDate();
+  for(let i=0;i<lead;i++){
+    const b=document.createElement("div");b.className="cell blank";cal.appendChild(b);
+  }
   for(let d=first;d<=dim;d++){
-    const key=keyOf(postCalY,postCalM,d),posts=socialPostsOn(key),cell=document.createElement("div");cell.className="cell"+(posts.length?" has-post":"")+(key===postSelDate?" sel":"")+(key===todayKey()?" today":"");cell.dataset.key=key;
-    const rt=posts.filter(p=>p.type==="reels_tiktok").length,st=posts.filter(p=>p.type==="story").length;
+    const key=keyOf(postCalY,postCalM,d),posts=socialPostsOn(key);
+    const cell=document.createElement("div");
+    cell.className="cell"+(posts.length?" has-post":"")+(key===postSelDate?" sel":"")+(key===todayKey()?" today":"");
+    cell.dataset.key=key;
+    const rt=posts.filter(p=>p.type==="reels_tiktok").length;
+    const st=posts.filter(p=>p.type==="story").length;
     cell.innerHTML=`<span class="dn">${d}</span>${posts.length?`<div class="post-cell-badges">${rt?`<span class="rt">R&T ${rt}</span>`:""}${st?`<span class="st">Story ${st}</span>`:""}</div>`:""}`;
-    cell.onclick=()=>{postSelDate=key;postEditId="";postDraftType="reels_tiktok";renderSocialCalendar();};cal.appendChild(cell);
+    cell.onclick=()=>{
+      postSelDate=key;postEditId="";postDraftType="reels_tiktok";renderSocialCalendar();
+    };
+    cal.appendChild(cell);
   }
   renderPostDetail();
 }
-function postContentOptions(selected=""){
-  const edited=(state.social.contents||[]).filter(c=>c.status==="edited");
-  return '<option value="">Editlenmiş içerik seç</option>'+edited.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("");
+function postContentOptions(selected="",editingPostId=""){
+  const used=new Set(
+    (state.social.posts||[])
+      .filter(p=>p.type==="reels_tiktok"&&p.id!==editingPostId&&p.contentId)
+      .map(p=>p.contentId)
+  );
+  const ready=(state.social.contents||[]).filter(c=>
+    c.status==="edited" && (!used.has(c.id)||c.id===selected)
+  );
+  if(!ready.length)return '<option value="">Hazır video yok</option>';
+  return '<option value="">Hazır video seç</option>'+
+    ready.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("");
 }
 function renderPostDetail(){
-  const box=document.getElementById("postDetail");if(!postSelDate){box.className="detail empty";box.textContent="Paylaşım planlamak için bir gün seç.";return;}
-  box.className="detail";const posts=socialPostsOn(postSelDate),editing=postEditId?(state.social.posts||[]).find(p=>p.id===postEditId):null;if(editing)postDraftType=editing.type;
-  box.innerHTML=`<h3>${prettyKey(postSelDate)}</h3><div class="post-day-list" id="postDayList">${posts.length?posts.map(p=>{const c=(state.social.contents||[]).find(x=>x.id===p.contentId),title=c?c.title:(p.title||POST_LABEL[p.type]);return `<div class="post-day-card"><div class="post-day-time">${escapeHtml(p.time||"—")}</div><div><span class="platform-badge">${escapeHtml(POST_LABEL[p.type]||p.type)}</span><div class="guest-name">${escapeHtml(title)}</div>${p.note?`<div class="guest-note">${escapeHtml(p.note)}</div>`:""}</div><div class="card-actions"><button class="mini-btn green" data-edit-post="${p.id}">Düzenle</button><button class="mini-btn alt" data-del-post="${p.id}">Sil</button></div></div>`;}).join(""):'<div class="line">Bu güne paylaşım planlanmamış.</div>'}</div><div class="post-editor"><div class="social-form"><b>${editing?'Paylaşımı güncelle':'Bu güne paylaşım ekle'}</b><div class="platform-choice"><button type="button" data-post-kind="reels_tiktok" class="${postDraftType==='reels_tiktok'?'on':''}">Reels & TikTok</button><button type="button" data-post-kind="story" class="${postDraftType==='story'?'on':''}">Story</button></div><input id="postTime" type="time" value="${escapeHtml(editing&&editing.time||"")}"><select id="postContent" class="${postDraftType==='story'?'hide':''}">${postContentOptions(editing&&editing.contentId||"")}</select><input id="postTitle" type="text" maxlength="120" placeholder="Başlık / paylaşım notu" value="${escapeHtml(editing&&(editing.title||editing.note)||"")}"><div class="card-actions"><button class="btn" id="postAdd">${editing?'Paylaşımı güncelle':'Takvime ekle'}</button>${editing?'<button class="btn alt" id="postCancel">Vazgeç</button>':''}</div></div></div>`;
-  box.querySelectorAll("[data-post-kind]").forEach(b=>b.onclick=()=>{postDraftType=b.dataset.postKind;renderPostDetail();});
-  box.querySelectorAll("[data-del-post]").forEach(b=>b.onclick=()=>mutate(o=>{o.social.posts=o.social.posts.filter(x=>x.id!==b.dataset.delPost);if(postEditId===b.dataset.delPost)postEditId="";}));
-  box.querySelectorAll("[data-edit-post]").forEach(b=>b.onclick=()=>{postEditId=b.dataset.editPost;const p=(state.social.posts||[]).find(x=>x.id===postEditId);if(p)postDraftType=p.type;renderPostDetail();});
-  const cancel=document.getElementById("postCancel");if(cancel)cancel.onclick=()=>{postEditId="";postDraftType="reels_tiktok";renderPostDetail();};
-  document.getElementById("postAdd").onclick=()=>{const time=document.getElementById("postTime").value,contentId=document.getElementById("postContent").value,title=document.getElementById("postTitle").value.trim();if(postDraftType==="reels_tiktok"&&!contentId){alert("Reels & TikTok için Editlendi aşamasındaki videoyu seçmelisin.");return;}mutate(o=>{const data={date:postSelDate,time,type:postDraftType,contentId:postDraftType==="story"?"":contentId,title,note:title,by:me,at:Date.now()};if(postEditId){const p=o.social.posts.find(x=>x.id===postEditId);if(p)Object.assign(p,data);}else{o.social.posts.push({id:"p"+Date.now()+Math.floor(Math.random()*999),...data});}});postEditId="";postDraftType="reels_tiktok";};
+  const box=document.getElementById("postDetail");
+  if(!postSelDate){
+    box.className="detail empty";
+    box.textContent="Paylaşım planlamak için bir gün seç.";
+    return;
+  }
+  box.className="detail";
+  const posts=socialPostsOn(postSelDate);
+  const editing=postEditId?(state.social.posts||[]).find(p=>p.id===postEditId):null;
+  if(editing)postDraftType=editing.type;
+  const isStory=postDraftType==="story";
+  box.innerHTML=`
+    <h3>${prettyKey(postSelDate)}</h3>
+    <div class="post-day-list" id="postDayList">
+      ${posts.length?posts.map(p=>{
+        const c=(state.social.contents||[]).find(x=>x.id===p.contentId);
+        const title=c?c.title:(p.title||POST_LABEL[p.type]);
+        return `<div class="post-day-card">
+          <div class="post-day-time">${escapeHtml(p.time||"—")}</div>
+          <div>
+            <span class="platform-badge">${escapeHtml(POST_LABEL[p.type]||p.type)}</span>
+            <div class="guest-name">${escapeHtml(title)}</div>
+            ${p.note&&(!c||p.note!==c.title)?`<div class="guest-note">${escapeHtml(p.note)}</div>`:""}
+          </div>
+          <div class="card-actions">
+            <button class="mini-btn green" data-edit-post="${p.id}">Düzenle</button>
+            <button class="mini-btn alt" data-del-post="${p.id}">Sil</button>
+          </div>
+        </div>`;
+      }).join(""):'<div class="line">Bu güne paylaşım planlanmamış.</div>'}
+    </div>
+    <div class="post-editor">
+      <div class="social-form">
+        <b>${editing?'Paylaşımı güncelle':'Bu güne paylaşım ekle'}</b>
+        <div class="platform-choice">
+          <button type="button" data-post-kind="reels_tiktok" class="${!isStory?'on':''}">Reels & TikTok</button>
+          <button type="button" data-post-kind="story" class="${isStory?'on':''}">Story</button>
+        </div>
+        <input id="postTime" type="time" value="${escapeHtml(editing&&editing.time||"")}">
+        ${isStory?"":`<select id="postContent">${postContentOptions(editing&&editing.contentId||"",editing&&editing.id||"")}</select>`}
+        <input id="postTitle" type="text" maxlength="120"
+          placeholder="${isStory?'Story konusu':'Paylaşım notu (opsiyonel)'}"
+          value="${escapeHtml(editing&&(editing.title||editing.note)||"")}">
+        <div class="card-actions">
+          <button class="btn" id="postAdd">${editing?'Paylaşımı güncelle':'Takvime ekle'}</button>
+          ${editing?'<button class="btn alt" id="postCancel">Vazgeç</button>':""}
+        </div>
+      </div>
+    </div>`;
+  box.querySelectorAll("[data-post-kind]").forEach(b=>b.onclick=()=>{
+    postDraftType=b.dataset.postKind;renderPostDetail();
+  });
+  box.querySelectorAll("[data-del-post]").forEach(b=>b.onclick=()=>mutate(o=>{
+    o.social.posts=o.social.posts.filter(x=>x.id!==b.dataset.delPost);
+    if(postEditId===b.dataset.delPost)postEditId="";
+  }));
+  box.querySelectorAll("[data-edit-post]").forEach(b=>b.onclick=()=>{
+    postEditId=b.dataset.editPost;
+    const p=(state.social.posts||[]).find(x=>x.id===postEditId);
+    if(p)postDraftType=p.type;
+    renderPostDetail();
+  });
+  const cancel=document.getElementById("postCancel");
+  if(cancel)cancel.onclick=()=>{
+    postEditId="";postDraftType="reels_tiktok";renderPostDetail();
+  };
+  document.getElementById("postAdd").onclick=()=>{
+    const time=document.getElementById("postTime").value;
+    const contentEl=document.getElementById("postContent");
+    const contentId=contentEl?contentEl.value:"";
+    const title=document.getElementById("postTitle").value.trim();
+    if(!time){alert("Paylaşım saati seç.");return;}
+    if(postDraftType==="reels_tiktok"&&!contentId){
+      alert("Reels & TikTok için Hazır Videolar listesinden bir video seçmelisin.");
+      return;
+    }
+    if(postDraftType==="story"&&!title){
+      alert("Story konusu yaz.");
+      return;
+    }
+    mutate(o=>{
+      const data={
+        date:postSelDate,time,type:postDraftType,
+        contentId:postDraftType==="story"?"":contentId,
+        title,note:title,by:me,at:Date.now()
+      };
+      if(postEditId){
+        const p=o.social.posts.find(x=>x.id===postEditId);
+        if(p)Object.assign(p,data);
+      }else{
+        o.social.posts.push({id:"p"+Date.now()+Math.floor(Math.random()*999),...data});
+      }
+    });
+    postEditId="";postDraftType="reels_tiktok";
+  };
 }
-function renderSocial(){renderSocialTabs();renderIdeas();renderApproved();if(socialPane==="calendar")renderSocialCalendar();}
+function renderSocial(){
+  renderSocialTabs();
+  renderIdeas();
+  renderApproved();
+  renderReady();
+  if(socialPane==="calendar")renderSocialCalendar();
+}
 (function wireSocial(){
-  document.querySelectorAll("#socialTabs button").forEach(b=>b.onclick=()=>{socialPane=b.dataset.socialPane;renderSocial();});
-  document.getElementById("ideaAdd").onclick=()=>{const title=document.getElementById("ideaTitle").value.trim(),note=document.getElementById("ideaNote").value.trim();if(!title){alert("Fikir başlığı yaz.");return;}mutate(o=>{o.social.ideas.push({id:"i"+Date.now()+Math.floor(Math.random()*999),title,note,by:me,at:Date.now(),votes:{[me]:true},rejects:{}});});document.getElementById("ideaTitle").value="";document.getElementById("ideaNote").value="";};
-  document.getElementById("approvedAdd").onclick=()=>{const title=document.getElementById("approvedTitle").value.trim(),note=document.getElementById("approvedNote").value.trim();if(!title){alert("İçerik adı yaz.");return;}mutate(o=>addApprovedContent(o,title,note));document.getElementById("approvedTitle").value="";document.getElementById("approvedNote").value="";};
-  document.getElementById("postPrevM").onclick=()=>{const n=new Date();if(postCalY===n.getFullYear()&&postCalM===n.getMonth())return;postCalM--;if(postCalM<0){postCalM=11;postCalY--;}postSelDate=null;renderSocialCalendar();};
-  document.getElementById("postNextM").onclick=()=>{postCalM++;if(postCalM>11){postCalM=0;postCalY++;}postSelDate=null;renderSocialCalendar();};
+  document.querySelectorAll("#socialTabs button").forEach(b=>b.onclick=()=>{
+    socialPane=b.dataset.socialPane;renderSocial();
+  });
+  document.getElementById("ideaAdd").onclick=()=>{
+    const title=document.getElementById("ideaTitle").value.trim();
+    const note=document.getElementById("ideaNote").value.trim();
+    if(!title){alert("Fikir başlığı yaz.");return;}
+    if(ideaEditId){
+      mutate(o=>{
+        const i=o.social.ideas.find(x=>x.id===ideaEditId);
+        if(!i||i.by!==me)return;
+        i.title=title;i.note=note;i.updatedAt=Date.now();
+      });
+    }else{
+      mutate(o=>{
+        o.social.ideas.push({
+          id:"i"+Date.now()+Math.floor(Math.random()*999),
+          title,note,by:me,at:Date.now(),
+          votes:{[me]:true},rejects:{},comments:[]
+        });
+      });
+    }
+    resetIdeaForm();
+  };
+  document.getElementById("ideaCancel").onclick=resetIdeaForm;
+  document.getElementById("approvedAdd").onclick=()=>{
+    const title=document.getElementById("approvedTitle").value.trim();
+    const note=document.getElementById("approvedNote").value.trim();
+    if(!title){alert("İçerik adı yaz.");return;}
+    mutate(o=>addApprovedContent(o,title,note));
+    document.getElementById("approvedTitle").value="";
+    document.getElementById("approvedNote").value="";
+  };
+  document.getElementById("postPrevM").onclick=()=>{
+    const n=new Date();
+    if(postCalY===n.getFullYear()&&postCalM===n.getMonth())return;
+    postCalM--;
+    if(postCalM<0){postCalM=11;postCalY--;}
+    postSelDate=null;renderSocialCalendar();
+  };
+  document.getElementById("postNextM").onclick=()=>{
+    postCalM++;
+    if(postCalM>11){postCalM=0;postCalY++;}
+    postSelDate=null;renderSocialCalendar();
+  };
 })();
 
 /* ===================== YAYIM ===================== */
