@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
-<meta name="bb-build" content="onesignal-safe-boot-v2">
+<meta name="bb-build" content="onesignal-event-push-v3">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -362,6 +362,38 @@
 /* ===================== ONESIGNAL WEB PUSH ===================== */
 const ONESIGNAL_APP_ID="dd9773b0-d83c-4011-9cc9-5b97266adee2";
 const ONESIGNAL_SAFARI_WEB_ID="web.onesignal.auto.599df49f-4478-46e8-9089-3c95d63b63cf";
+const PUSH_WORKER_URL="https://belkibiraz-robot.aziz-mete-sahin.workers.dev/push";
+const APP_HOME_URL="https://azizmetesahin.github.io/belkibiraz-app/";
+let pendingPhonePushes=[];
+
+function queuePhonePush(title,message,recipients){
+  const clean=[...new Set((recipients||[]).filter(k=>["aziz","melis","bora","orkun","emir"].includes(k)))];
+  if(!clean.length||!message)return;
+  pendingPhonePushes.push({
+    recipients:clean,
+    title:String(title||"Belki Biraz"),
+    message:String(message||""),
+    url:APP_HOME_URL
+  });
+}
+
+async function flushPhonePushes(items){
+  if(!Array.isArray(items)||!items.length)return;
+  await Promise.allSettled(items.map(item=>
+    fetch(PUSH_WORKER_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(item)
+    }).then(async r=>{
+      if(!r.ok){
+        let detail="";
+        try{ detail=JSON.stringify(await r.json()); }catch(e){}
+        throw new Error(`Push ${r.status} ${detail}`);
+      }
+      return r.json();
+    }).catch(err=>console.error("Telefon bildirimi gönderilemedi:",err))
+  ));
+}
 let oneSignalSdk=null;
 let oneSignalInitialized=false;
 
@@ -717,13 +749,26 @@ async function cloudWrite(o){
 async function mutate(fn){
   if(!configured()){ setSync("kurulum eksik"); return; }
   setSync("kaydediliyor…");
+  pendingPhonePushes=[];
   try{
     const fresh = await cloudRead();
     fn(fresh);
     ensureShape(fresh);
+    const queuedPushes=pendingPhonePushes.slice();
+    pendingPhonePushes=[];
     const ok = await cloudWrite(fresh);
-    if(ok){ state=fresh; setSync("kaydedildi"); } else setSync("kaydedilemedi");
-  }catch(e){ setSync("bağlantı hatası"); }
+    if(ok){
+      state=fresh;
+      setSync("kaydedildi");
+      if(queuedPushes.length) void flushPhonePushes(queuedPushes);
+    }else{
+      setSync("kaydedilemedi");
+    }
+  }catch(e){
+    pendingPhonePushes=[];
+    console.error(e);
+    setSync("bağlantı hatası");
+  }
   renderAll();
 }
 
@@ -745,6 +790,7 @@ function pushNotification(o,type,title,text,recipients,target={},includeActor=fa
   o.notifications=Array.isArray(o.notifications)?o.notifications:[];
   const at=Date.now();
   o.notifications.push({id:`n${at}${Math.floor(Math.random()*9999)}`,type,title,text,recipients:rec,target,at,by:me,deletedBy:{}});
+  queuePhonePush(title,text,rec);
 }
 function meetingRecipientsFor(o,mode){
   const usa=!!(o.settings&&o.settings.orkunUSA);
