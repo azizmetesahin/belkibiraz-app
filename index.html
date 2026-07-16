@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
-<meta name="bb-build" content="social-workflow-v2.1">
+<meta name="bb-build" content="social-workflow-v2.2">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -628,6 +628,12 @@ async function logoutOneSignalUser(){
       </div>
 
       <div class="social-pane hide" id="socialPane-ready">
+        <div class="social-form">
+          <b>Doğrudan hazır video ekle</b>
+          <input id="readyTitle" type="text" maxlength="100" placeholder="Video adı">
+          <textarea id="readyNote" maxlength="400" placeholder="Not veya açıklama (opsiyonel)"></textarea>
+          <button class="btn green" id="readyAdd">Hazır videolara ekle</button>
+        </div>
         <div class="ready-note">Editi tamamlanan videolar burada bekler. Reels & TikTok paylaşım planı oluştururken yalnızca bu listedeki videolar seçilebilir.</div>
         <div id="readyList"></div>
       </div>
@@ -1309,6 +1315,15 @@ function addApprovedContent(o,title,note,sourceIdeaId=""){
   o.social.contents.push(content);
   pushNotification(o,"editor","Yeni video edit görevi",`“${title}” içeriği sana atandı.`,[editor],{tab:"sosyal",pane:"approved",contentId:content.id});
 }
+function addReadyContent(o,title,note){
+  const editor=EDITORS.includes(me)?me:nextEditor(o);
+  const content={
+    id:"ct"+Date.now()+Math.floor(Math.random()*999),
+    title,note,status:"edited",editor,sourceIdeaId:"",by:me,
+    at:Date.now(),assignedAt:Date.now(),directReady:true
+  };
+  o.social.contents.push(content);
+}
 function renderSocialTabs(){
   document.querySelectorAll("#socialTabs button").forEach(b=>b.classList.toggle("on",b.dataset.socialPane===socialPane));
   ["ideas","approved","ready","calendar"].forEach(x=>{
@@ -1763,6 +1778,14 @@ function renderSocial(){
     mutate(o=>addApprovedContent(o,title,note));
     document.getElementById("approvedTitle").value="";
     document.getElementById("approvedNote").value="";
+  };
+  document.getElementById("readyAdd").onclick=()=>{
+    const title=document.getElementById("readyTitle").value.trim();
+    const note=document.getElementById("readyNote").value.trim();
+    if(!title){alert("Video adı yaz.");return;}
+    mutate(o=>addReadyContent(o,title,note));
+    document.getElementById("readyTitle").value="";
+    document.getElementById("readyNote").value="";
   };
   document.getElementById("postPrevM").onclick=()=>{
     const n=new Date();
