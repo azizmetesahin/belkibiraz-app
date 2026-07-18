@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
-<meta name="bb-build" content="supabase-v1">
+<meta name="bb-build" content="supabase-v1.1-karne-folders">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,6 +186,18 @@
   .scorecell .sd{font-family:"Space Mono",monospace;font-size:11px;font-weight:700}.scorecell .sv{font-family:"Space Mono",monospace;font-size:20px;font-weight:800;line-height:1;text-align:center}.scorecell .scount{font-family:"Space Mono",monospace;font-size:9px;text-align:right;opacity:.78}
   .score-verylow{background:#ffd6df;color:#981b47;border-color:#d83f71}.score-low{background:#ffe2c4;color:#8f4700;border-color:#e58932}.score-mid{background:#fff0aa;color:#6f5900;border-color:#d3ad00}.score-good{background:#dff3c9;color:#31620f;border-color:#70a83c}.score-great{background:#ccefe7;color:#075e50;border-color:#2b9f8e}.score-top{background:#ddd5ff;color:#3d238f;border-color:#7658d6}
   .score-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:10px;color:var(--ink-soft)}.score-legend span{border:1px solid var(--line);padding:3px 6px;background:#fff}.month-summary{font-family:"Space Mono",monospace;font-size:11px;color:var(--ink-soft);text-align:center;margin:-4px 0 10px}
+  .scorecell.has-score{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+  .scorecell.has-score:hover{transform:translateY(-1px);box-shadow:2px 2px 0 var(--ink)}
+  .scorecell.selected{outline:3px solid var(--ink);outline-offset:-3px}
+  .score-day-detail{margin-top:12px;border:1.5px solid var(--line);background:var(--paper-2);padding:11px}
+  .score-day-detail.hide{display:none}
+  .score-day-title{font-family:"Space Mono",monospace;font-size:11px;font-weight:900;text-transform:uppercase;margin-bottom:8px}
+  .score-person-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .score-person{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.2px solid var(--line);background:#fff;padding:7px 8px;font-size:12px}
+  .score-person b{font-family:"Space Mono",monospace;font-size:11px}
+  .score-person .score-missing{color:var(--ink-soft);font-size:10px}
+  @media(max-width:520px){.score-person-list{grid-template-columns:1fr}}
+
 
   /* practical calendar controls */
   .detail input[type=time],.detail input[type=text],.detail select{width:100%;border:1.4px solid var(--line);padding:9px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink)}
@@ -352,6 +364,22 @@
   .idea-comment-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;margin-top:7px}
   .idea-comment-form input{min-width:0}
   .ready-note{border:1.5px dashed #aaa;background:rgba(255,255,255,.55);padding:11px;margin-bottom:11px;color:var(--ink-soft);font-size:12px}
+  .ready-folder-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}
+  .ready-folder-form .btn{margin:0}
+  .ready-folder{border:1.5px solid var(--line);background:#fff;margin-bottom:12px;box-shadow:4px 4px 0 #cfc8ee}
+  .ready-folder summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 11px;background:var(--paper-2);border-bottom:1px solid transparent}
+  .ready-folder[open] summary{border-bottom-color:var(--line)}
+  .ready-folder summary::-webkit-details-marker{display:none}
+  .ready-folder-name{font-weight:900;flex:1;min-width:0}
+  .ready-folder-count{font-family:"Space Mono",monospace;font-size:9px;border:1px solid var(--line);background:#fff;padding:3px 6px}
+  .ready-folder-actions{display:flex;gap:5px}
+  .ready-folder-actions button{border:1px solid var(--line);background:#fff;font-family:"Space Mono",monospace;font-size:9px;padding:4px 6px;cursor:pointer}
+  .ready-folder-body{padding:10px}
+  .ready-folder-body .social-card:last-child{margin-bottom:0}
+  .ready-folder-empty{font-size:11px;color:var(--ink-soft);padding:8px;border:1px dashed #aaa;background:#fafafa}
+  .folder-move{max-width:190px;border:1.2px solid var(--line);background:#fff;padding:6px;font-family:"Space Mono",monospace;font-size:10px}
+  @media(max-width:620px){.ready-folder-form{grid-template-columns:1fr}.folder-move{max-width:100%;width:100%}}
+
 
   /* ===================== RELEASE ===================== */
   .release-hero{border:1.5px solid var(--line);background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--pink);padding:18px;margin:10px 0 20px}.release-days{font-family:"Space Mono",monospace;font-size:34px;font-weight:900;line-height:1}.release-date{font-size:13px;color:#d8d4ed;margin-top:7px}.release-form{border:1.5px solid var(--line);background:#fff;padding:12px;display:grid;gap:8px;margin-bottom:14px}.release-card{border:1.5px solid var(--line);background:#fff;padding:12px;margin-bottom:9px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.release-card .rd{font-family:"Space Mono",monospace;font-size:11px;font-weight:800}
@@ -563,6 +591,7 @@ async function logoutOneSignalUser(){
           <div class="monthnav"><button id="kPrevM" aria-label="Önceki ay">‹</button><div class="mtitle" id="kTitle">—</div><button id="kNextM" aria-label="Sonraki ay">›</button></div>
           <div class="month-summary" id="kMonthAvg">—</div>
           <div class="scorecal" id="scoreCal"></div>
+          <div class="score-day-detail hide" id="scoreDayDetail"></div>
           <div class="score-legend"><span>0–4,9 düşük</span><span>5–5,9</span><span>6–6,9</span><span>7–7,9</span><span>8–8,9</span><span>9–10 çok iyi</span></div>
         </div>
       </div>
@@ -629,12 +658,20 @@ async function logoutOneSignalUser(){
 
       <div class="social-pane hide" id="socialPane-ready">
         <div class="social-form">
+          <b>Hazır video dosyası oluştur</b>
+          <div class="ready-folder-form">
+            <input id="readyFolderName" type="text" maxlength="80" placeholder="Örn. Hazır Yangın Videoları">
+            <button class="btn alt" id="readyFolderAdd">Dosya oluştur</button>
+          </div>
+        </div>
+        <div class="social-form">
           <b>Doğrudan hazır video ekle</b>
           <input id="readyTitle" type="text" maxlength="100" placeholder="Video adı">
           <textarea id="readyNote" maxlength="400" placeholder="Not veya açıklama (opsiyonel)"></textarea>
+          <select id="readyAddFolder"><option value="">Dosyasız</option></select>
           <button class="btn green" id="readyAdd">Hazır videolara ekle</button>
         </div>
-        <div class="ready-note">Editi tamamlanan videolar burada bekler. Reels & TikTok paylaşım planı oluştururken yalnızca bu listedeki videolar seçilebilir.</div>
+        <div class="ready-note">Editi tamamlanan videolar burada bekler. Videoları dosyalarda gruplayabilir ve Reels & TikTok paylaşım planında bu hazır videolardan seçim yapabilirsin.</div>
         <div id="readyList"></div>
       </div>
 
@@ -730,7 +767,7 @@ let calMode = "me";
 let socialPane = "ideas";
 const now0 = new Date();
 let calY = now0.getFullYear(), calM = now0.getMonth();
-let scoreCalY = now0.getFullYear(), scoreCalM = now0.getMonth();
+let scoreCalY = now0.getFullYear(), scoreCalM = now0.getMonth(), scoreDetailDate = "";
 let postCalY = now0.getFullYear(), postCalM = now0.getMonth(), postSelDate = null;
 let postDraftType = "reels_tiktok", postEditId = "";
 let ideaEditId = "";
@@ -739,7 +776,7 @@ let currentDay = todayKey();
 const pending = {};   // pending score for my card
 const openConcerts = new Set();
 
-function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{}}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[], notifications:[] }; }
+function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{},readyFolders:[]}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[], notifications:[] }; }
 function ensureShape(o){
   o.days=o.days||{}; o.dayAverages=o.dayAverages||{}; o.busy=o.busy||{};
   o.meetings=o.meetings||{}; o.meetings.content=o.meetings.content||{}; o.meetings.cookseh=o.meetings.cookseh||{}; o.meetings.studio=o.meetings.studio||{}; o.meetings.meeting=o.meetings.meeting||{};
@@ -757,16 +794,22 @@ function ensureShape(o){
   o.video.edits=o.video.edits||{};
   EDITORS.forEach(k=>{ if(typeof o.video.edits[k]!=="number") o.video.edits[k]=0; });
   o.social=o.social||{};
-  o.social.ideas=Array.isArray(o.social.ideas)?o.social.ideas:[]; o.social.contents=Array.isArray(o.social.contents)?o.social.contents:[]; o.social.posts=Array.isArray(o.social.posts)?o.social.posts:[]; o.social.assignmentCounts=o.social.assignmentCounts||{};
+  o.social.ideas=Array.isArray(o.social.ideas)?o.social.ideas:[];
+  o.social.contents=Array.isArray(o.social.contents)?o.social.contents:[];
+  o.social.posts=Array.isArray(o.social.posts)?o.social.posts:[];
+  o.social.readyFolders=Array.isArray(o.social.readyFolders)?o.social.readyFolders.filter(f=>f&&f.id&&f.name):[];
+  o.social.assignmentCounts=o.social.assignmentCounts||{};
   EDITORS.forEach(k=>{ if(typeof o.social.assignmentCounts[k]!=="number") o.social.assignmentCounts[k]=0; });
   o.social.ideas.forEach(i=>{
     i.votes=(i.votes&&typeof i.votes==="object")?i.votes:{};
     i.rejects=(i.rejects&&typeof i.rejects==="object")?i.rejects:{};
     i.comments=Array.isArray(i.comments)?i.comments.filter(c=>c&&c.id&&c.text):[];
   });
+  const readyFolderIds=new Set(o.social.readyFolders.map(f=>String(f.id)));
   o.social.contents.forEach(c=>{
     if(!["approved","shot","editing","edited"].includes(c.status))c.status="approved";
     if(!EDITORS.includes(c.editor))c.editor=EDITORS[0];
+    c.folderId=readyFolderIds.has(String(c.folderId||""))?String(c.folderId):"";
   });
   o.social.posts.forEach(p=>{ if(p.type==="reels"||p.type==="tiktok")p.type="reels_tiktok"; if(!["reels_tiktok","story"].includes(p.type))p.type="story"; });
   o.release=o.release||{}; o.release.lastDate=o.release.lastDate||"2026-03-06"; o.release.plans=Array.isArray(o.release.plans)?o.release.plans:[];
@@ -1212,17 +1255,87 @@ function renderKarne(){
   document.getElementById("doneLbl").textContent=`bugün ${count}/${PEOPLE.length} kişi yazdı`;
   document.getElementById("dateLbl").textContent=prettyDate();
 }
-function renderKarneCalendar(){
-  const panel=document.getElementById("karneCalPanel"),cal=document.getElementById("scoreCal"); if(!panel||!cal||panel.classList.contains("hide"))return;
-  const now=new Date(),cy=now.getFullYear(),cm=now.getMonth(); if(scoreCalY>cy||(scoreCalY===cy&&scoreCalM>cm)){scoreCalY=cy;scoreCalM=cm;}
-  document.getElementById("kTitle").textContent=`${TR_MONTHS[scoreCalM]} ${scoreCalY}`; document.getElementById("kNextM").disabled=scoreCalY===cy&&scoreCalM===cm;
-  cal.innerHTML=""; DOW.forEach(d=>{const e=document.createElement("div");e.className="dow";e.textContent=d;cal.appendChild(e);});
-  const lead=(new Date(scoreCalY,scoreCalM,1).getDay()+6)%7; for(let i=0;i<lead;i++){const e=document.createElement("div");e.className="scorecell blank";cal.appendChild(e);}
-  const dim=new Date(scoreCalY,scoreCalM+1,0).getDate(),avgs=[];
-  for(let d=1;d<=dim;d++){const key=keyOf(scoreCalY,scoreCalM,d),rec=(state.dayAverages||{})[key],cell=document.createElement("div");cell.className="scorecell";if(key===todayKey())cell.classList.add("today");if(key>todayKey())cell.classList.add("future");if(rec&&Number.isFinite(Number(rec.avg))){cell.classList.add(scoreClass(Number(rec.avg)));avgs.push(Number(rec.avg));}cell.innerHTML=`<span class="sd">${d}</span>${rec?`<span class="sv">${Number(rec.avg).toFixed(1)}</span><span class="scount">${Number(rec.count)||0}/${PEOPLE.length}</span>`:`<span class="sv">–</span><span class="scount"></span>`}`;cal.appendChild(cell);}
-  const monthAvg=avgs.length?avgs.reduce((a,b)=>a+b,0)/avgs.length:null;document.getElementById("kMonthAvg").textContent=monthAvg===null?"Bu ay henüz günlük ortalama oluşmadı.":`Ay ortalaması: ${monthAvg.toFixed(1)} / 10 · ${avgs.length} gün`;
+function renderScoreDayDetail(){
+  const box=document.getElementById("scoreDayDetail");
+  if(!box)return;
+  if(!scoreDetailDate){
+    box.classList.add("hide");
+    box.innerHTML="";
+    return;
+  }
+  const day=(state.days&&state.days[scoreDetailDate])||{};
+  const rows=PEOPLE.map(p=>{
+    const rec=day[p.key];
+    return `<div class="score-person"><span>${escapeHtml(p.name)}</span>${rec&&Number.isFinite(Number(rec.score))?`<b>${Number(rec.score).toFixed(Number(rec.score)%1?1:0)} / 10</b>`:'<span class="score-missing">Yazmadı</span>'}</div>`;
+  }).join("");
+  box.classList.remove("hide");
+  box.innerHTML=`<div class="score-day-title">${escapeHtml(prettyKey(scoreDetailDate))}</div><div class="score-person-list">${rows}</div>`;
 }
-(function wireKarneCalendar(){const t=document.getElementById("karneCalToggle"),p=document.getElementById("karneCalPanel");if(!t||!p)return;t.onclick=()=>{p.classList.toggle("hide");t.textContent=p.classList.contains("hide")?"📅 Aylık karne takvimi":"Takvimi kapat";renderKarneCalendar();};document.getElementById("kPrevM").onclick=()=>{scoreCalM--;if(scoreCalM<0){scoreCalM=11;scoreCalY--;}renderKarneCalendar();};document.getElementById("kNextM").onclick=()=>{const n=new Date();if(scoreCalY===n.getFullYear()&&scoreCalM===n.getMonth())return;scoreCalM++;if(scoreCalM>11){scoreCalM=0;scoreCalY++;}renderKarneCalendar();};})();
+function renderKarneCalendar(){
+  const panel=document.getElementById("karneCalPanel"),cal=document.getElementById("scoreCal");
+  if(!panel||!cal||panel.classList.contains("hide"))return;
+  const now=new Date(),cy=now.getFullYear(),cm=now.getMonth();
+  if(scoreCalY>cy||(scoreCalY===cy&&scoreCalM>cm)){scoreCalY=cy;scoreCalM=cm;}
+  document.getElementById("kTitle").textContent=`${TR_MONTHS[scoreCalM]} ${scoreCalY}`;
+  document.getElementById("kNextM").disabled=scoreCalY===cy&&scoreCalM===cm;
+  cal.innerHTML="";
+  DOW.forEach(d=>{const e=document.createElement("div");e.className="dow";e.textContent=d;cal.appendChild(e);});
+  const lead=(new Date(scoreCalY,scoreCalM,1).getDay()+6)%7;
+  for(let i=0;i<lead;i++){const e=document.createElement("div");e.className="scorecell blank";cal.appendChild(e);}
+  const dim=new Date(scoreCalY,scoreCalM+1,0).getDate(),avgs=[];
+  for(let d=1;d<=dim;d++){
+    const key=keyOf(scoreCalY,scoreCalM,d);
+    const rec=(state.dayAverages||{})[key];
+    const dayScores=(state.days&&state.days[key])||{};
+    const hasAny=PEOPLE.some(p=>dayScores[p.key]&&Number.isFinite(Number(dayScores[p.key].score)));
+    const cell=document.createElement("div");
+    cell.className="scorecell";
+    if(key===todayKey())cell.classList.add("today");
+    if(key>todayKey())cell.classList.add("future");
+    if(key===scoreDetailDate)cell.classList.add("selected");
+    if(hasAny)cell.classList.add("has-score");
+    if(rec&&Number.isFinite(Number(rec.avg))){
+      cell.classList.add(scoreClass(Number(rec.avg)));
+      avgs.push(Number(rec.avg));
+    }
+    cell.innerHTML=`<span class="sd">${d}</span>${rec?`<span class="sv">${Number(rec.avg).toFixed(1)}</span><span class="scount">${Number(rec.count)||0}/${PEOPLE.length}</span>`:`<span class="sv">–</span><span class="scount"></span>`}`;
+    if(hasAny){
+      cell.title="Kişi bazlı puanları gör";
+      cell.onclick=()=>{
+        scoreDetailDate=scoreDetailDate===key?"":key;
+        renderKarneCalendar();
+      };
+    }
+    cal.appendChild(cell);
+  }
+  const monthAvg=avgs.length?avgs.reduce((a,b)=>a+b,0)/avgs.length:null;
+  document.getElementById("kMonthAvg").textContent=monthAvg===null?"Bu ay henüz günlük ortalama oluşmadı.":`Ay ortalaması: ${monthAvg.toFixed(1)} / 10 · ${avgs.length} gün`;
+  renderScoreDayDetail();
+}
+(function wireKarneCalendar(){
+  const t=document.getElementById("karneCalToggle"),p=document.getElementById("karneCalPanel");
+  if(!t||!p)return;
+  t.onclick=()=>{
+    p.classList.toggle("hide");
+    t.textContent=p.classList.contains("hide")?"📅 Aylık karne takvimi":"Takvimi kapat";
+    if(p.classList.contains("hide"))scoreDetailDate="";
+    renderKarneCalendar();
+  };
+  document.getElementById("kPrevM").onclick=()=>{
+    scoreCalM--;
+    if(scoreCalM<0){scoreCalM=11;scoreCalY--;}
+    scoreDetailDate="";
+    renderKarneCalendar();
+  };
+  document.getElementById("kNextM").onclick=()=>{
+    const n=new Date();
+    if(scoreCalY===n.getFullYear()&&scoreCalM===n.getMonth())return;
+    scoreCalM++;
+    if(scoreCalM>11){scoreCalM=0;scoreCalY++;}
+    scoreDetailDate="";
+    renderKarneCalendar();
+  };
+})();
 
 document.addEventListener("input",e=>{ if(e.target.tagName==="TEXTAREA") e.target.dataset.touched="1"; });
 
@@ -1400,14 +1513,29 @@ function addApprovedContent(o,title,note,sourceIdeaId=""){
   o.social.contents.push(content);
   pushNotification(o,"editor","Yeni video edit görevi",`“${title}” içeriği sana atandı.`,[editor],{tab:"sosyal",pane:"approved",contentId:content.id});
 }
-function addReadyContent(o,title,note){
+function addReadyContent(o,title,note,folderId=""){
   const editor=EDITORS.includes(me)?me:nextEditor(o);
+  const validFolder=(o.social.readyFolders||[]).some(f=>String(f.id)===String(folderId))?String(folderId):"";
   const content={
     id:"ct"+Date.now()+Math.floor(Math.random()*999),
     title,note,status:"edited",editor,sourceIdeaId:"",by:me,
-    at:Date.now(),assignedAt:Date.now(),directReady:true
+    at:Date.now(),assignedAt:Date.now(),directReady:true,folderId:validFolder
   };
   o.social.contents.push(content);
+}
+function readyFoldersSorted(){
+  return ((state.social&&state.social.readyFolders)||[]).slice().sort((a,b)=>(a.name||"").localeCompare(b.name||"","tr"));
+}
+function readyFolderOptions(selected="",includeBlank=true){
+  const folders=readyFoldersSorted();
+  return `${includeBlank?`<option value="" ${!selected?"selected":""}>Dosyasız</option>`:""}${folders.map(f=>`<option value="${escapeHtml(f.id)}" ${String(selected)===String(f.id)?"selected":""}>${escapeHtml(f.name)}</option>`).join("")}`;
+}
+function renderReadyAddFolderOptions(){
+  const select=document.getElementById("readyAddFolder");
+  if(select)select.innerHTML=readyFolderOptions(select.value||"",true);
+}
+function canManageReadyFolder(folder){
+  return !!folder&&(folder.by===me||managers()||me==="bora");
 }
 function renderSocialTabs(){
   document.querySelectorAll("#socialTabs button").forEach(b=>b.classList.toggle("on",b.dataset.socialPane===socialPane));
@@ -1595,7 +1723,7 @@ function workflowButtons(c){
   }
   return "";
 }
-function contentCardHtml(c){
+function contentCardHtml(c,showFolder=false){
   const opts=EDITORS.map(k=>`<option value="${k}" ${c.editor===k?'selected':''}>${escapeHtml(nameOf(k))}</option>`).join("");
   return `
     <div class="social-card-head">
@@ -1606,12 +1734,19 @@ function contentCardHtml(c){
     ${pipelineHtml(c.status)}
     <div class="card-actions">
       <span class="vote-pill">Editör: ${escapeHtml(nameOf(c.editor))}</span>
+      ${showFolder?`<select class="folder-move" data-folder-content="${c.id}" aria-label="Hazır video dosyası">${readyFolderOptions(c.folderId||"",true)}</select>`:""}
       ${canAssignEditors()?`<select class="editor-select" data-editor="${c.id}">${opts}</select>`:""}
       ${workflowButtons(c)}
       ${managers()?`<button class="mini-btn alt" data-del-content="${c.id}">Sil</button>`:""}
     </div>`;
 }
 function wireContentList(list){
+  list.querySelectorAll("[data-folder-content]").forEach(x=>x.onchange=()=>mutate(o=>{
+    const c=o.social.contents.find(z=>z.id===x.dataset.folderContent);
+    if(!c||c.status!=="edited")return;
+    const folderId=String(x.value||"");
+    c.folderId=(o.social.readyFolders||[]).some(f=>String(f.id)===folderId)?folderId:"";
+  }));
   list.querySelectorAll("[data-editor]").forEach(x=>x.onchange=()=>mutate(o=>{
     if(!canAssignEditors())return;
     const c=o.social.contents.find(z=>z.id===x.dataset.editor);
@@ -1658,23 +1793,77 @@ function renderApproved(){
   });
   wireContentList(list);
 }
+function buildReadyFolderSection(folder,items,isUngrouped=false){
+  const section=document.createElement("details");
+  section.className="ready-folder";
+  section.open=true;
+  const folderName=isUngrouped?"Dosyasız videolar":folder.name;
+  const canManage=!isUngrouped&&canManageReadyFolder(folder);
+  section.innerHTML=`
+    <summary>
+      <span aria-hidden="true">📁</span>
+      <span class="ready-folder-name">${escapeHtml(folderName)}</span>
+      <span class="ready-folder-count">${items.length} video</span>
+      ${canManage?`<span class="ready-folder-actions"><button type="button" data-rename-folder="${folder.id}">Adı değiştir</button><button type="button" data-delete-folder="${folder.id}">Sil</button></span>`:""}
+    </summary>
+    <div class="ready-folder-body"></div>`;
+  const body=section.querySelector(".ready-folder-body");
+  if(!items.length){
+    body.innerHTML='<div class="ready-folder-empty">Bu dosyada henüz video yok.</div>';
+  }else{
+    items.forEach(c=>{
+      const card=document.createElement("div");
+      card.className="social-card";
+      card.innerHTML=contentCardHtml(c,true);
+      body.appendChild(card);
+    });
+    wireContentList(body);
+  }
+  section.querySelectorAll("[data-rename-folder]").forEach(b=>b.onclick=e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const current=(state.social.readyFolders||[]).find(f=>f.id===b.dataset.renameFolder);
+    if(!current||!canManageReadyFolder(current))return;
+    const next=prompt("Dosyanın yeni adı:",current.name);
+    if(!next||!next.trim())return;
+    mutate(o=>{
+      const f=(o.social.readyFolders||[]).find(x=>x.id===b.dataset.renameFolder);
+      if(f&&canManageReadyFolder(f))f.name=next.trim().slice(0,80);
+    });
+  });
+  section.querySelectorAll("[data-delete-folder]").forEach(b=>b.onclick=e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const current=(state.social.readyFolders||[]).find(f=>f.id===b.dataset.deleteFolder);
+    if(!current||!canManageReadyFolder(current))return;
+    if(!confirm(`“${current.name}” dosyası silinsin mi? Videolar silinmez, Dosyasız bölümüne taşınır.`))return;
+    mutate(o=>{
+      const folder=(o.social.readyFolders||[]).find(f=>f.id===b.dataset.deleteFolder);
+      if(!folder||!canManageReadyFolder(folder))return;
+      (o.social.contents||[]).forEach(c=>{if(String(c.folderId||"")===String(folder.id))c.folderId="";});
+      o.social.readyFolders=(o.social.readyFolders||[]).filter(f=>f.id!==folder.id);
+    });
+  });
+  return section;
+}
 function renderReady(){
   const list=document.getElementById("readyList");
   list.innerHTML="";
+  renderReadyAddFolderOptions();
   const arr=((state.social&&state.social.contents)||[])
     .filter(c=>c.status==="edited")
     .slice().sort((a,b)=>(b.at||0)-(a.at||0));
-  if(!arr.length){
-    list.innerHTML='<div class="empty-state">Henüz hazır video yok.</div>';
+  const folders=readyFoldersSorted();
+  if(!arr.length&&!folders.length){
+    list.innerHTML='<div class="empty-state">Henüz hazır video veya dosya yok.</div>';
     return;
   }
-  arr.forEach(c=>{
-    const card=document.createElement("div");
-    card.className="social-card";
-    card.innerHTML=contentCardHtml(c);
-    list.appendChild(card);
+  const ungrouped=arr.filter(c=>!c.folderId||!folders.some(f=>String(f.id)===String(c.folderId)));
+  if(ungrouped.length)list.appendChild(buildReadyFolderSection({id:"",name:"Dosyasız videolar"},ungrouped,true));
+  folders.forEach(folder=>{
+    const items=arr.filter(c=>String(c.folderId||"")===String(folder.id));
+    list.appendChild(buildReadyFolderSection(folder,items,false));
   });
-  wireContentList(list);
 }
 function socialPostsOn(date){
   return (state.social.posts||[]).filter(p=>p.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
@@ -1723,8 +1912,17 @@ function postContentOptions(selected="",editingPostId=""){
     c.status==="edited" && (!used.has(c.id)||c.id===selected)
   );
   if(!ready.length)return '<option value="">Hazır video yok</option>';
-  return '<option value="">Hazır video seç</option>'+
-    ready.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("");
+  const folders=readyFoldersSorted();
+  const ungrouped=ready.filter(c=>!c.folderId||!folders.some(f=>String(f.id)===String(c.folderId)));
+  let html='<option value="">Hazır video seç</option>';
+  if(ungrouped.length){
+    html+=`<optgroup label="Dosyasız">${ungrouped.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("")}</optgroup>`;
+  }
+  folders.forEach(folder=>{
+    const items=ready.filter(c=>String(c.folderId||"")===String(folder.id));
+    if(items.length)html+=`<optgroup label="${escapeHtml(folder.name)}">${items.map(c=>`<option value="${c.id}" ${selected===c.id?'selected':''}>${escapeHtml(c.title)}</option>`).join("")}</optgroup>`;
+  });
+  return html;
 }
 function renderPostDetail(){
   const box=document.getElementById("postDetail");
@@ -1864,11 +2062,31 @@ function renderSocial(){
     document.getElementById("approvedTitle").value="";
     document.getElementById("approvedNote").value="";
   };
+  document.getElementById("readyFolderAdd").onclick=()=>{
+    const input=document.getElementById("readyFolderName");
+    const name=input.value.trim();
+    if(!name){alert("Dosya adı yaz.");return;}
+    mutate(o=>{
+      o.social.readyFolders=Array.isArray(o.social.readyFolders)?o.social.readyFolders:[];
+      if(o.social.readyFolders.some(f=>(f.name||"").trim().toLocaleLowerCase("tr")===name.toLocaleLowerCase("tr"))){
+        alert("Bu isimde bir dosya zaten var.");
+        return;
+      }
+      o.social.readyFolders.push({
+        id:"rf"+Date.now()+Math.floor(Math.random()*999),
+        name:name.slice(0,80),
+        by:me,
+        at:Date.now()
+      });
+    });
+    input.value="";
+  };
   document.getElementById("readyAdd").onclick=()=>{
     const title=document.getElementById("readyTitle").value.trim();
     const note=document.getElementById("readyNote").value.trim();
+    const folderId=document.getElementById("readyAddFolder").value||"";
     if(!title){alert("Video adı yaz.");return;}
-    mutate(o=>addReadyContent(o,title,note));
+    mutate(o=>addReadyContent(o,title,note,folderId));
     document.getElementById("readyTitle").value="";
     document.getElementById("readyNote").value="";
   };
