@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Belki Biraz</title>
-<meta name="bb-build" content="supabase-v1.3-all-chat-auto-karne-avatars">
+<meta name="bb-build" content="supabase-v1.4-daily-word-game">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -423,6 +423,42 @@
   @media(max-width:620px){.ready-folder-form{grid-template-columns:1fr}.folder-move{max-width:100%;width:100%}}
 
 
+
+  /* ===================== GÜNLÜK 5 HARFLİ OYUN ===================== */
+  .game-shell{max-width:620px;margin:18px auto 28px}
+  .game-status{border:1.5px solid var(--line);background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--teal);padding:13px 15px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .game-status b{font-family:"Space Mono",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+  .game-status span{font-family:"Space Mono",monospace;font-size:11px;color:#c9c5dc;text-align:right}
+  .game-board{display:grid;gap:7px;justify-content:center;margin:0 auto 16px}
+  .game-row{display:grid;grid-template-columns:repeat(5,54px);gap:7px}
+  .game-cell{width:54px;height:54px;border:2px solid #aaa4ba;background:#fff;display:grid;place-items:center;font-family:"Space Mono",monospace;font-size:25px;font-weight:900;text-transform:uppercase;transition:transform .12s,background .12s,color .12s,border-color .12s}
+  .game-cell.filled{border-color:var(--ink);transform:scale(1.02)}
+  .game-cell.correct{background:var(--green);border-color:var(--green);color:#fff}
+  .game-cell.present{background:var(--orange);border-color:var(--orange);color:#fff}
+  .game-cell.absent{background:#777384;border-color:#777384;color:#fff}
+  .game-compose{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:0 auto 13px;max-width:420px}
+  .game-compose input{min-width:0;border:1.5px solid var(--line);background:#fff;padding:12px;font-family:"Space Mono",monospace;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;text-align:center}
+  .game-compose button{border:1.5px solid var(--line);background:var(--pink);color:#fff;padding:0 16px;font-weight:900;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+  .game-compose button:disabled{opacity:.5;cursor:wait}
+  .game-message{min-height:24px;text-align:center;font-size:13px;font-weight:700;margin-bottom:8px;color:var(--ink-soft)}
+  .game-message.error{color:#b21e5c}
+  .game-keyboard{display:grid;gap:6px;margin:0 auto;max-width:610px}
+  .game-key-row{display:flex;justify-content:center;gap:5px}
+  .game-key{min-width:34px;height:46px;padding:0 8px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-family:"Space Mono",monospace;font-size:13px;font-weight:900;cursor:pointer}
+  .game-key.wide{min-width:64px;font-size:10px}
+  .game-key.correct{background:var(--green);border-color:var(--green);color:#fff}
+  .game-key.present{background:var(--orange);border-color:var(--orange);color:#fff}
+  .game-key.absent{background:#777384;border-color:#777384;color:#fff}
+  .game-help{margin:15px auto 0;max-width:540px;border:1px dashed #aaa;background:rgba(255,255,255,.55);padding:10px 12px;color:var(--ink-soft);font-size:12px;text-align:center}
+  .game-help i{display:inline-block;width:11px;height:11px;margin:0 3px -1px;border:1px solid var(--line)}
+  .game-help .g{background:var(--green)}.game-help .o{background:var(--orange)}.game-help .x{background:#777384}
+  .game-new{display:inline-grid;place-items:center;min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font-family:"Space Mono",monospace;font-size:8px;font-weight:900;margin-left:2px;padding:0 4px}
+  @media(max-width:430px){
+    .game-row{grid-template-columns:repeat(5,48px);gap:6px}.game-cell{width:48px;height:48px;font-size:22px}
+    .game-key-row{gap:3px}.game-key{min-width:27px;height:43px;padding:0 5px;font-size:11px}.game-key.wide{min-width:52px;font-size:9px}
+    .game-status{align-items:flex-start;flex-direction:column}.game-status span{text-align:left}
+  }
+
   /* ===================== RELEASE ===================== */
   .release-hero{border:1.5px solid var(--line);background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--pink);padding:18px;margin:10px 0 20px}.release-days{font-family:"Space Mono",monospace;font-size:34px;font-weight:900;line-height:1}.release-date{font-size:13px;color:#d8d4ed;margin-top:7px}.release-form{border:1.5px solid var(--line);background:#fff;padding:12px;display:grid;gap:8px;margin-bottom:14px}.release-card{border:1.5px solid var(--line);background:#fff;padding:12px;margin-bottom:9px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.release-card .rd{font-family:"Space Mono",monospace;font-size:11px;font-weight:800}
   /* ===================== BOTTOM NAV ===================== */
@@ -657,6 +693,25 @@ async function logoutOneSignalUser(){
       <div class="grid" id="grid"></div>
     </section>
 
+
+    <!-- GÜNLÜK OYUN -->
+    <section class="view" id="view-oyun">
+      <div class="eyebrow"><span class="dot"></span> günde bir kez oynanır</div>
+      <h1>Bugünün <em>5 harfli</em> kelimesi</h1>
+      <p class="sub">Altı denemede kelimeyi bul. Oyunu bitirdiğinde Oyun sekmesi ertesi güne kadar otomatik olarak kaybolur.</p>
+      <div class="game-shell">
+        <div class="game-status"><b id="gameAttemptText">0 / 6 deneme</b><span id="gameDateText">—</span></div>
+        <div class="game-board" id="gameBoard" aria-label="Kelime tahmin tahtası"></div>
+        <div class="game-message" id="gameMessage" aria-live="polite"></div>
+        <div class="game-compose">
+          <input id="gameGuessInput" type="text" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="5 HARF" aria-label="Beş harfli tahmin">
+          <button id="gameGuessSubmit" type="button">Dene</button>
+        </div>
+        <div class="game-keyboard" id="gameKeyboard" aria-label="Türkçe ekran klavyesi"></div>
+        <div class="game-help"><i class="g"></i> doğru yerde &nbsp; <i class="o"></i> kelimede var, yeri yanlış &nbsp; <i class="x"></i> kelimede yok</div>
+      </div>
+    </section>
+
     <!-- TAKVIM -->
     <section class="view" id="view-takvim">
       <div class="ann hide" id="annBannerT"><div class="anntext" id="annTextT"></div><button class="annx" id="annXT" aria-label="Kapat">×</button></div>
@@ -771,6 +826,7 @@ async function logoutOneSignalUser(){
 
   <nav class="nav" id="nav">
     <button data-tab="karne" class="on"><span class="ic">🏆</span>Karne</button>
+    <button data-tab="oyun"><span class="ic">🧩</span>Oyun <span class="game-new">1</span></button>
     <button data-tab="takvim"><span class="ic">📅</span>Takvim</button>
     <button data-tab="sosyal"><span class="ic">🎬</span>Sosyal</button>
     <button data-tab="konser"><span class="ic">🎤</span>Konser</button>
@@ -868,11 +924,71 @@ let currentDay = todayKey();
 const pending = {};   // pending score for my card
 const openConcerts = new Set();
 
-function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{},readyFolders:[]}, messages:{schema:2,threads:{group:[]}}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[], notifications:[] }; }
+/* ===== günlük 5 harfli kelime oyunu ===== */
+const GAME_MAX_GUESSES=6;
+const GAME_LETTERS="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW";
+const GAME_WORDS=`araba bahar balık balon barış basit biber bilim bitki bodur böcek burun cadde cesur çadır çakal çanta çelik çiçek çocuk dalga damak damar davul değer deniz derin devre dikey diken dilek dolap dünya ekran ekmek elmas emlak erdem erkek esnaf evcil evren fidan fikir filiz firma fırın göbek gölge gönül gövde gübre güneş güzel haber hafif hafta haklı hamle hayat hedef heves hızlı hırka hüzün ırmak insan iplik kabak kadın kahve kalem kamış kanat kapak karar karga karın kavun kayak kekik kemer kepçe keser kiler kiraz kitap kobra kolay komik konuk korku kömür köpek kulak kumaş kumru kuşak kuzen limon liste maden makas masal melek merak metal metre mimar minik motor müzik nabız neden nehir nokta orman ortak otlak paket pamuk panel perde radar rakam reçel roman sabah sabit sabun salça salon saray savaş sebep sekiz serin sevgi sıcak sınav sinir sokak somun sonuç şehir şeker takım talep tarla tavuk temel temiz terzi tohum topuk torba tuğla tutku tüfek vagon vakit varış vatan yağış yalan yarın yatak yavaş yazık yemek yeşil yokuş zebra zemin zihin zorlu`.split(/\s+/).map(w=>w.toLocaleUpperCase("tr-TR"));
+const GAME_KEY_ROWS=[
+  ["E","R","T","Y","U","I","O","P","Ğ","Ü"],
+  ["A","S","D","F","G","H","J","K","L","Ş","İ"],
+  ["ENTER","Z","X","C","V","B","N","M","Ö","Ç","SİL"]
+];
+let gameDraft="";
+let gameSaving=false;
+function normalizeGameGuess(value){
+  return Array.from(String(value||"").toLocaleUpperCase("tr-TR")).filter(ch=>GAME_LETTERS.includes(ch)).slice(0,5).join("");
+}
+function dailyGameAnswer(date=todayKey()){
+  let h=2166136261;
+  for(const ch of String(date)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619);}
+  return GAME_WORDS[(h>>>0)%GAME_WORDS.length];
+}
+function gameRecord(source=state,date=todayKey(),user=me){
+  const raw=source&&source.game&&source.game.days&&source.game.days[date]&&source.game.days[date][user];
+  return raw&&typeof raw==="object"?raw:{guesses:[],completed:false,won:false,completedAt:0};
+}
+function ensureGameRecord(source,date=todayKey(),user=me){
+  source.game=source.game||{days:{}};source.game.days=source.game.days||{};source.game.days[date]=source.game.days[date]||{};
+  const current=source.game.days[date][user];
+  if(!current||typeof current!=="object")source.game.days[date][user]={guesses:[],completed:false,won:false,completedAt:0};
+  const r=source.game.days[date][user];
+  r.guesses=Array.isArray(r.guesses)?r.guesses:[];
+  return r;
+}
+function gameAvailable(){return !!me&&!gameRecord(state).completed;}
+function evaluateGameGuess(guess,answer){
+  const g=Array.from(guess),a=Array.from(answer),out=Array(5).fill("absent"),left={};
+  for(let i=0;i<5;i++){
+    if(g[i]===a[i])out[i]="correct";
+    else left[a[i]]=(left[a[i]]||0)+1;
+  }
+  for(let i=0;i<5;i++){
+    if(out[i]==="correct")continue;
+    if((left[g[i]]||0)>0){out[i]="present";left[g[i]]--;}
+  }
+  return out;
+}
+
+function emptyState(){ return { days:{}, dayAverages:{}, busy:{}, meetings:{content:{},cookseh:{},studio:{},meeting:{}}, settings:{orkunUSA:false}, game:{days:{}}, video:{shot:0,finished:0,published:0,edits:{}}, social:{ideas:[],contents:[],posts:[],assignmentCounts:{},readyFolders:[]}, messages:{schema:2,threads:{group:[]}}, release:{lastDate:"2026-03-06",plans:[]}, announcement:{}, concerts:[], notifications:[] }; }
 function ensureShape(o){
   o.days=o.days||{}; o.dayAverages=o.dayAverages||{}; o.busy=o.busy||{};
   o.meetings=o.meetings||{}; o.meetings.content=o.meetings.content||{}; o.meetings.cookseh=o.meetings.cookseh||{}; o.meetings.studio=o.meetings.studio||{}; o.meetings.meeting=o.meetings.meeting||{};
   o.settings=o.settings||{}; if(typeof o.settings.orkunUSA!=="boolean") o.settings.orkunUSA=false;
+  o.game=(o.game&&typeof o.game==="object")?o.game:{days:{}};
+  o.game.days=(o.game.days&&typeof o.game.days==="object")?o.game.days:{};
+  Object.keys(o.game.days).forEach(date=>{
+    const daily=(o.game.days[date]&&typeof o.game.days[date]==="object")?o.game.days[date]:{};
+    o.game.days[date]=daily;
+    PEOPLE.forEach(p=>{
+      const raw=(daily[p.key]&&typeof daily[p.key]==="object")?daily[p.key]:null;
+      if(!raw)return;
+      raw.guesses=Array.isArray(raw.guesses)?raw.guesses.map(normalizeGameGuess).filter(g=>Array.from(g).length===5).slice(0,6):[];
+      raw.completed=!!raw.completed;
+      raw.won=!!raw.won;
+      raw.completedAt=Number(raw.completedAt)||0;
+      if(raw.completed&&!raw.guesses.length)raw.completed=false;
+    });
+  });
   PEOPLE.forEach(p=>{
     o.busy[p.key]=o.busy[p.key]||{};
     Object.keys(o.busy[p.key]).forEach(d=>{ o.busy[p.key][d]=normalizeBusyValue(o.busy[p.key][d]); });
@@ -1722,12 +1838,115 @@ document.getElementById("usaTog").onclick=()=>mutate(o=>{o.settings.orkunUSA=!o.
 document.getElementById("prevM").onclick=()=>{const now=new Date();if(calY===now.getFullYear()&&calM===now.getMonth())return;calM--;if(calM<0){calM=11;calY--;}selDate=null;renderTakvim();};
 document.getElementById("nextM").onclick=()=>{calM++;if(calM>11){calM=0;calY++;}selDate=null;renderTakvim();};
 
+/* ===================== GÜNLÜK OYUN ===================== */
+function setGameMessage(text="",error=false){
+  const el=document.getElementById("gameMessage");if(!el)return;el.textContent=text;el.classList.toggle("error",!!error);
+}
+function gameLetterRanks(guesses,answer){
+  const ranks={},score={absent:1,present:2,correct:3};
+  guesses.forEach(guess=>evaluateGameGuess(guess,answer).forEach((status,i)=>{
+    const letter=Array.from(guess)[i];if((score[status]||0)>(ranks[letter]||0))ranks[letter]=score[status];
+  }));
+  return ranks;
+}
+function drawGameBoard(){
+  const board=document.getElementById("gameBoard");if(!board||!me)return;
+  const rec=gameRecord(state),answer=dailyGameAnswer(),guesses=Array.isArray(rec.guesses)?rec.guesses:[];
+  board.innerHTML="";
+  for(let row=0;row<GAME_MAX_GUESSES;row++){
+    const rowEl=document.createElement("div");rowEl.className="game-row";
+    const saved=guesses[row]||"",draft=(!saved&&row===guesses.length)?gameDraft:"",letters=Array.from(saved||draft),statuses=saved?evaluateGameGuess(saved,answer):[];
+    for(let col=0;col<5;col++){
+      const cell=document.createElement("div");cell.className="game-cell";cell.textContent=letters[col]||"";
+      if(letters[col])cell.classList.add("filled");if(statuses[col])cell.classList.add(statuses[col]);
+      rowEl.appendChild(cell);
+    }
+    board.appendChild(rowEl);
+  }
+}
+function drawGameKeyboard(){
+  const keyboard=document.getElementById("gameKeyboard");if(!keyboard||!me)return;
+  const rec=gameRecord(state),answer=dailyGameAnswer(),ranks=gameLetterRanks(rec.guesses||[],answer),statusByRank={1:"absent",2:"present",3:"correct"};
+  keyboard.innerHTML="";
+  GAME_KEY_ROWS.forEach(row=>{
+    const rowEl=document.createElement("div");rowEl.className="game-key-row";
+    row.forEach(key=>{
+      const b=document.createElement("button");b.type="button";b.className="game-key";b.textContent=key;
+      if(key==="ENTER"||key==="SİL")b.classList.add("wide");else if(ranks[key])b.classList.add(statusByRank[ranks[key]]);
+      b.addEventListener("click",()=>handleGameKey(key));rowEl.appendChild(b);
+    });
+    keyboard.appendChild(rowEl);
+  });
+}
+function syncGameInput(){
+  const input=document.getElementById("gameGuessInput");if(input&&input.value!==gameDraft)input.value=gameDraft;
+  drawGameBoard();
+}
+function handleGameKey(key){
+  if(!gameAvailable()||gameSaving)return;
+  if(key==="ENTER"){void submitGameGuess();return;}
+  if(key==="SİL"){gameDraft=Array.from(gameDraft).slice(0,-1).join("");syncGameInput();return;}
+  if(Array.from(gameDraft).length<5){gameDraft=normalizeGameGuess(gameDraft+key);syncGameInput();}
+}
+function renderGame(){
+  const attempt=document.getElementById("gameAttemptText"),date=document.getElementById("gameDateText"),input=document.getElementById("gameGuessInput"),submit=document.getElementById("gameGuessSubmit");
+  if(!attempt||!me)return;
+  const rec=gameRecord(state),count=(rec.guesses||[]).length;
+  attempt.textContent=`${count} / ${GAME_MAX_GUESSES} deneme`;
+  date.textContent=new Date().toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long"});
+  if(input){input.disabled=!!rec.completed||gameSaving;input.value=gameDraft;}
+  if(submit)submit.disabled=!!rec.completed||gameSaving;
+  drawGameBoard();drawGameKeyboard();
+  if(!rec.completed)setGameMessage(count?`${GAME_MAX_GUESSES-count} tahmin hakkın kaldı.`:"İlk tahminini yaz.");
+}
+async function submitGameGuess(){
+  if(gameSaving||!gameAvailable())return;
+  const guess=normalizeGameGuess(gameDraft||document.getElementById("gameGuessInput")?.value||"");
+  if(Array.from(guess).length!==5){setGameMessage("Tahmin tam olarak 5 harf olmalı.",true);return;}
+  const before=gameRecord(state),answer=dailyGameAnswer();
+  if((before.guesses||[]).includes(guess)){setGameMessage("Bu kelimeyi zaten denedin.",true);return;}
+  gameSaving=true;renderGame();
+  await mutate(o=>{
+    const r=ensureGameRecord(o,todayKey(),me);if(r.completed)return;
+    const clean=normalizeGameGuess(guess);if(r.guesses.includes(clean))return;
+    r.guesses.push(clean);
+    if(clean===dailyGameAnswer()||r.guesses.length>=GAME_MAX_GUESSES){r.completed=true;r.won=clean===dailyGameAnswer();r.completedAt=Date.now();}
+  });
+  gameSaving=false;gameDraft="";
+  const after=gameRecord(state);
+  if(after.completed){
+    alert(after.won?`Bildin! Günün kelimesi ${answer}. Oyun yarın tekrar açılacak.`:`Tahmin hakkın bitti. Günün kelimesi ${answer}. Oyun yarın tekrar açılacak.`);
+    activateTab("karne");
+  }else renderGame();
+}
+function syncGameTabVisibility(){
+  const btn=document.querySelector('#nav button[data-tab="oyun"]'),available=gameAvailable();
+  if(btn)btn.style.display=available?"":"none";
+  if(!available&&tab==="oyun")tab="karne";
+  document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x.dataset.tab===tab));
+  ["karne","oyun","takvim","sosyal","konser","yayim"].forEach(x=>{const view=document.getElementById(`view-${x}`);if(view)view.classList.toggle("active",tab===x);});
+}
+(function wireDailyGame(){
+  const input=document.getElementById("gameGuessInput"),submit=document.getElementById("gameGuessSubmit");
+  if(input){
+    input.addEventListener("input",()=>{gameDraft=normalizeGameGuess(input.value);input.value=gameDraft;setGameMessage("");drawGameBoard();});
+    input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();void submitGameGuess();}});
+  }
+  if(submit)submit.addEventListener("click",()=>void submitGameGuess());
+  document.addEventListener("keydown",e=>{
+    if(tab!=="oyun"||!gameAvailable()||gameSaving||document.activeElement===input)return;
+    if(e.key==="Enter"){e.preventDefault();void submitGameGuess();return;}
+    if(e.key==="Backspace"){e.preventDefault();handleGameKey("SİL");return;}
+    const letter=normalizeGameGuess(e.key);if(Array.from(letter).length===1){e.preventDefault();handleGameKey(letter);}
+  });
+})();
+
 /* ===================== NAV ===================== */
 
 function activateTab(nextTab){
+  if(nextTab==="oyun"&&!gameAvailable())nextTab="karne";
   tab=nextTab;
-  document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x.dataset.tab===tab));
-  ["karne","takvim","sosyal","konser","yayim"].forEach(x=>document.getElementById(`view-${x}`).classList.toggle("active",tab===x));
+  syncGameTabVisibility();
   window.scrollTo(0,0);
   renderAll();
 }
@@ -2771,7 +2990,7 @@ function buildMoneySection(c){
 })();
 
 /* ===================== LOAD / LOOP ===================== */
-function renderAll(){ renderKarne(); renderKarneCalendar(); renderStats(); renderAnn(); renderNotifications(); renderMessages(); if(tab==="takvim") renderTakvim(); if(tab==="sosyal") renderSocial(); if(tab==="konser") renderKonser(); if(tab==="yayim") renderRelease(); }
+function renderAll(){ syncGameTabVisibility(); renderKarne(); renderKarneCalendar(); renderStats(); renderAnn(); renderNotifications(); renderMessages(); if(tab==="oyun") renderGame(); if(tab==="takvim") renderTakvim(); if(tab==="sosyal") renderSocial(); if(tab==="konser") renderKonser(); if(tab==="yayim") renderRelease(); }
 async function load(){
   if(!configured()){ renderAll(); return; }
   setSync("yükleniyor…");
